@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cherrytree>
+  <node unique_id="2" master_id="0" name="header section" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1793045403" ts_lastsave="1793046007">
+    <rich_text>
+code
+</rich_text>
+    <rich_text foreground="#bbbebf"> </rich_text>
+    <rich_text foreground="#8b949e">&lt;!-- this is for header section and navigation bar --&gt;</rich_text>
+    <rich_text>
+</rich_text>
+    <rich_text foreground="#bbbebf">     </rich_text>
+    <rich_text foreground="#808080">&lt;</rich_text>
+    <rich_text foreground="#7ee787">header</rich_text>
+    <rich_text foreground="#bbbebf"> </rich_text>
+    <rich_text foreground="#9cdcfe">class</rich_text>
+    <rich_text foreground="#bbbebf">=</rich_text>
+    <rich_text foreground="#a5d6ff">"main-header"</rich_text>
+    <rich_text foreground="#808080">&gt;</rich_text>
+    <rich_text>
+</rich_text>
+    <rich_text foreground="#bbbebf">        </rich_text>
+    <rich_text foreground="#808080">&lt;</rich_text>
+    <rich_text foreground="#7ee787">div</rich_text>
+    <rich_text foreground="#bbbebf"> </rich_text>
+    <rich_text foreground="#9cdcfe">class</rich_text>
+    <rich_text foreground="#bbbebf">=</rich_text>
+    <rich_text foreground="#a5d6ff">" header-container"</rich_text>
+    <rich_text foreground="#808080">&gt;</rich_text>
+    <rich_text>
+</rich_text>
+    <rich_text foreground="#bbbebf">            </rich_text>
+    <rich_text foreground="#808080">&lt;</rich_text>
+    <rich_text foreground="#7ee787">div</rich_text>
+    <rich_text foreground="#bbbebf"> </rich_text>
+    <rich_text foreground="#9cdcfe">class</rich_text>
+    <rich_text foreground="#bbbebf">=</rich_text>
+    <rich_text foreground="#a5d6ff">"brand"</rich_text>
+    <rich_text foreground="#808080">&gt;</rich_text>
+    <rich_text>
+</rich_text>
+    <rich_text foreground="#bbbebf">                </rich_text>
+    <rich_text foreground="#808080">&lt;</rich_text>
+    <rich_text foreground="#7ee787">h1</rich_text>
+    <rich_text foreground="#bbbebf"> </rich_text>
+    <rich_text foreground="#9cdcfe">class</rich_text>
+    <rich_text foreground="#bbbebf">=</rich_text>
+    <rich_text foreground="#a5d6ff">"brand-name"</rich_text>
+    <rich_text foreground="#808080">&gt;</rich_text>
+    <rich_text foreground="#bbbebf">SupaPass </rich_text>
+    <rich_text foreground="#808080">&lt;</rich_text>
+    <rich_text foreground="#7ee787">span</rich_text>
+    <rich_text foreground="#808080">&gt;</rich_text>
+    <rich_text foreground="#bbbebf">KE</rich_text>
+    <rich_text foreground="#808080">&lt;/</rich_text>
+    <rich_text foreground="#7ee787">span</rich_text>
+    <rich_text foreground="#808080">&gt;</rich_text>
+    <rich_text foreground="#bbbebf"> </rich_text>
+    <rich_text foreground="#808080">&lt;/</rich_text>
+    <rich_text foreground="#7ee787">h1</rich_text>
+    <rich_text foreground="#808080">&gt;</rich_text>
+    <rich_text>
+</rich_text>
+    <rich_text foreground="#bbbebf">                </rich_text>
+    <rich_text foreground="#808080">&lt;</rich_text>
+    <rich_text foreground="#7ee787">p</rich_text>
+    <rich_text foreground="#bbbebf"> </rich_text>
+    <rich_text foreground="#9cdcfe">class</rich_text>
+    <rich_text foreground="#bbbebf">=</rich_text>
+    <rich_text foreground="#a5d6ff">"brand-tagline"</rich_text>
+    <rich_text foreground="#808080">&gt;</rich_text>
+    <rich_text foreground="#bbbebf">Daystar University Consolidated Campus Hub</rich_text>
+    <rich_text foreground="#808080">&lt;/</rich_text>
+    <rich_text foreground="#7ee787">p</rich_text>
+    <rich_text foreground="#808080">&gt;</rich_text>
+    <rich_text>
+</rich_text>
+    <rich_text foreground="#bbbebf">        </rich_text>
+    <rich_text foreground="#808080">&lt;/</rich_text>
+    <rich_text foreground="#7ee787">div</rich_text>
+    <rich_text foreground="#808080">&gt;</rich_text>
+    <rich_text>
+
+
+adding button inside the header div
+</rich_text>
+    <rich_text foreground="#8b949e">&lt;!--auth buttons (mahali pa John IAN JAVASCRIT)--&gt;</rich_text>
+    <rich_text>
+</rich_text>
+    <rich_text foreground="#bbbebf">             </rich_text>
+    <rich_text foreground="#808080">&lt;</rich_text>
+    <rich_text foreground="#7ee787">div</rich_text>
+    <rich_text foreground="#bbbebf"> </rich_text>
+    <rich_text foreground="#9cdcfe">class</rich_text>
+    <rich_text foreground="#bbbebf">=</rich_text>
+    <rich_text foreground="#a5d6ff">"auth-buttons"</rich_text>
+    <rich_text foreground="#808080">&gt;</rich_text>
+    <rich_text>
+</rich_text>
+    <rich_text foreground="#bbbebf">                </rich_text>
+    <rich_text foreground="#808080">&lt;</rich_text>
+    <rich_text foreground="#7ee787">button</rich_text>
+    <rich_text foreground="#bbbebf"> </rich_text>
+    <rich_text foreground="#9cdcfe">type</rich_text>
+    <rich_text foreground="#bbbebf">=</rich_text>
+    <rich_text foreground="#a5d6ff">"button"</rich_text>
+    <rich_text foreground="#bbbebf"> </rich_text>
+    <rich_text foreground="#9cdcfe">class</rich_text>
+    <rich_text foreground="#bbbebf">=</rich_text>
+    <rich_text foreground="#a5d6ff">"btn btn-outline"</rich_text>
+    <rich_text foreground="#bbbebf"> </rich_text>
+    <rich_text foreground="#9cdcfe">id</rich_text>
+    <rich_text foreground="#bbbebf">=</rich_text>
+    <rich_text foreground="#a5d6ff">"student-login-btn"</rich_text>
+    <rich_text foreground="#808080">&gt;</rich_text>
+    <rich_text foreground="#bbbebf"> student login</rich_text>
+    <rich_text foreground="#808080">&lt;/</rich_text>
+    <rich_text foreground="#7ee787">button</rich_text>
+    <rich_text foreground="#808080">&gt;</rich_text>
+    <rich_text>
+</rich_text>
+    <rich_text foreground="#bbbebf">                </rich_text>
+    <rich_text foreground="#808080">&lt;</rich_text>
+    <rich_text foreground="#7ee787">button</rich_text>
+    <rich_text foreground="#bbbebf"> </rich_text>
+    <rich_text foreground="#9cdcfe">type</rich_text>
+    <rich_text foreground="#bbbebf">=</rich_text>
+    <rich_text foreground="#a5d6ff">"button"</rich_text>
+    <rich_text foreground="#bbbebf"> </rich_text>
+    <rich_text foreground="#9cdcfe">class</rich_text>
+    <rich_text foreground="#bbbebf">=</rich_text>
+    <rich_text foreground="#a5d6ff">"btn btn-outline"</rich_text>
+    <rich_text foreground="#bbbebf"> </rich_text>
+    <rich_text foreground="#9cdcfe">id</rich_text>
+    <rich_text foreground="#bbbebf">=</rich_text>
+    <rich_text foreground="#a5d6ff">"staff-login-btn"</rich_text>
+    <rich_text foreground="#808080">&gt;</rich_text>
+    <rich_text foreground="#bbbebf"> admin login</rich_text>
+    <rich_text foreground="#808080">&lt;/</rich_text>
+    <rich_text foreground="#7ee787">button</rich_text>
+    <rich_text foreground="#808080">&gt;</rich_text>
+    <rich_text>
+</rich_text>
+    <rich_text foreground="#bbbebf">             </rich_text>
+    <rich_text foreground="#808080">&lt;/</rich_text>
+    <rich_text foreground="#7ee787">div</rich_text>
+    <rich_text foreground="#808080">&gt;</rich_text>
+    <rich_text>
+</rich_text>
+    <rich_text foreground="#bbbebf">            </rich_text>
+    <rich_text foreground="#808080">&lt;/</rich_text>
+    <rich_text foreground="#7ee787">div</rich_text>
+    <rich_text foreground="#808080">&gt;</rich_text>
+    <rich_text>
+
+</rich_text>
+    <encoded_png char_offset="0" justification="left" link="" sha256sum="c7cf88faa796f8ad9b73466ddcdc2dd5f205564772ef54c6ad0793dc010e98c2"/>
+    <encoded_png char_offset="343" justification="left" link="" sha256sum="b7b56166df8f8880b52bf2f2069c5abab87308e83d5c90f5aa5af85cb7b66159"/>
+  </node>
+</cherrytree>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SupaPass Kenya | Daystar Campus Event Hub</title>
+    //<!-- this is for css file link-->>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- this is for header section and navigation bar -->
+     <header class="main-header">
+        <div class=" header-container">
+            <div class="brand">
+                <h1 class="brand-name">SupaPass <span>KE</span> </h1>
+                <p class="brand-tagline">Daystar University Consolidated Campus Hub</p>
+       <!--auth buttons (mahali pa John IAN JAVASCRIT)-->
+             <div class="auth-buttons">
+                <button type="button" class="btn btn-outline" id="student-login-btn"> student login</button>
+                <button type="button" class="btn btn-outline" id="staff-login-btn"> admin login</button>
+             </div>
+            </div>
+        
+        </header>
+
+        <!-- 2. Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h2>All Daystar Campus Events on One Single Page</h2>
+            <p>Eliminating communication breakdown across scattered WhatsApp groups and email threads. Discover, filter, and access your event passes effortlessly.</p>
+        </div>
+    </section>
+
+    <!-- 3. Main Content Container -->
+    <main class="main-container">
+
+        <!-- Filter & Search Controls Panel -->
+        <section class="filter-section">
+            <form class="filter-form" id="event-filter-form" onsubmit="return false;">
+                
+                <!-- Search Input Hook for JavaScript -->
+                <div class="form-group search-group">
+                    <label for="search-input">Search Events</label>
+                    <input type="text" id="search-input" class="form-control" placeholder="Search by event title, venue, or speaker...">
+                </div>
+
+                <!-- School Taxonomy Filter Hook for JavaScript -->
+                <div class="form-group">
+                    <label for="school-filter">Filter by School / Faculty</label>
+                    <select id="school-filter" class="form-control">
+                        <option value="all">All Schools & Faculties</option>
+                        <option value="science">School of Science & Technology</option>
+                        <option value="law">School of Law</option>
+                        <option value="nursing">School of Nursing</option>
+                        <option value="business">School of Business & Economics</option>
+                        <option value="dusa">DUSA / Central Student Body</option>
+                    </select>
+                </div>
+
+                <!-- Academic vs Non-Academic Category Hook for JavaScript -->
+                <div class="form-group">
+                    <label for="category-filter">Event Category</label>
+                    <select id="category-filter" class="form-control">
+                        <option value="all">All Categories</option>
+                        <option value="academic">Academic</option>
+                        <option value="non-academic">Non-Academic</option>
+                    </select>
+                </div>
+
+            </form>
+        </section>
+
+       <!-- 4. Event Cards Grid Container -->
+        section class="events-section">
+            <div class="events-header">
+                <h3>Upcoming Campus Events</h3>
+                <span class="events-count" id="events-count-badge">6 Events Listed</span>
+            </div>
+
+            <!-- CSS Grid Container (PC: 3 Columns, Mobile: 1 Column) -->
+            <div class="event-grid" id="event-grid-container">
+
+                <!-- Event Card 1: Free Academic Event -->
+                <article class="event-card" data-school="science" data-category="academic">
+                    <div class="card-image-wrapper">
+                        <span class="badge badge-school">School of Science</span>
+                        <span class="badge badge-category">Academic</span>
+                        <div class="placeholder-image">AI & Cloud Tech</div>
+                    </div>
+                    <div class="card-content">
+                        <h4 class="event-title">Applied AI & Cloud Computing Workshop</h4>
+                        <div class="event-details">
+                            <p class="detail-item"><strong>Date:</strong> Fri, 14th Nov • 10:00 AM</p>
+                            <p class="detail-item"><strong>Venue:</strong> Athi River Campus, PAC Room 3</p>
+                            <p class="detail-item"><strong>Target:</strong> Science & Tech Students</p>
+                        </div>
+                        <div class="card-footer">
+                            <span class="price-badge free-price">KSH 0 (Free Entry)</span>
+                            <button type="button" class="btn btn-primary book-ticket-btn" data-event-id="1">Book Pass</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Event Card 2: Low-Cost Non-Academic Event (Movie Night) -->
+                <article class="event-card" data-school="dusa" data-category="non-academic">
+                    <div class="card-image-wrapper">
+                        <span class="badge badge-school">DUSA Central</span>
+                        <span class="badge badge-category">Non-Academic</span>
+                        <div class="placeholder-image" style="background-color: #4a2c40;">Movie Night</div>
+                    </div>
+                    <div class="card-content">
+                        <h4 class="event-title">Outdoor Campus Movie Night & Popcorn</h4>
+                        <div class="event-details">
+                            <p class="detail-item"><strong>Date:</strong> Sat, 15th Nov • 6:30 PM</p>
+                            <p class="detail-item"><strong>Venue:</strong> Amphitheatre, Athi River</p>
+                            <p class="detail-item"><strong>Target:</strong> Open to All Students</p>
+                        </div>
+                        <div class="card-footer">
+                            <span class="price-badge paid-price">KSH 300</span>
+                            <button type="button" class="btn btn-primary book-ticket-btn" data-event-id="2">Buy Ticket</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Event Card 3: High-Tier International Trip -->
+                <article class="event-card" data-school="business" data-category="academic">
+                    <div class="card-image-wrapper">
+                        <span class="badge badge-school">School of Business</span>
+                        <span class="badge badge-category">Academic</span>
+                        <div class="placeholder-image" style="background-color: #0d47a1;">International Tour</div>
+                    </div>
+                    <div class="card-content">
+                        <h4 class="event-title">Rwanda Tech & Business Academic Tour</h4>
+                        <div class="event-details">
+                            <p class="detail-item"><strong>Date:</strong> 10th - 16th Dec 2026</p>
+                            <p class="detail-item"><strong>Venue:</strong> Kigali, Rwanda</p>
+                            <p class="detail-item"><strong>Target:</strong> Business & IT Students</p>
+                        </div>
+                        <div class="card-footer">
+                            <span class="price-badge paid-price">KSH 28,000</span>
+                            <button type="button" class="btn btn-primary book-ticket-btn" data-event-id="5">Reserve Spot</button>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 5. Footer -->
+    <footer class="main-footer">
+        <p>&copy; 2026 SupaPass Kenya • Daystar University ACS 355 Project</p>
+    </footer><!-- 4. Event Cards Grid Container -->
+        section class="events-section">
+            <div class="events-header">
+                <h3>Upcoming Campus Events</h3>
+                <span class="events-count" id="events-count-badge">6 Events Listed</span>
+            </div>
+
+            <!-- CSS Grid Container (PC: 3 Columns, Mobile: 1 Column) -->
+            <div class="event-grid" id="event-grid-container">
+
+                <!-- Event Card 1: Free Academic Event -->
+                <article class="event-card" data-school="science" data-category="academic">
+                    <div class="card-image-wrapper">
+                        <span class="badge badge-school">School of Science</span>
+                        <span class="badge badge-category">Academic</span>
+                        <div class="placeholder-image">AI & Cloud Tech</div>
+                    </div>
+                    <div class="card-content">
+                        <h4 class="event-title">Applied AI & Cloud Computing Workshop</h4>
+                        <div class="event-details">
+                            <p class="detail-item"><strong>Date:</strong> Fri, 14th Nov • 10:00 AM</p>
+                            <p class="detail-item"><strong>Venue:</strong> Athi River Campus, PAC Room 3</p>
+                            <p class="detail-item"><strong>Target:</strong> Science & Tech Students</p>
+                        </div>
+                        <div class="card-footer">
+                            <span class="price-badge free-price">KSH 0 (Free Entry)</span>
+                            <button type="button" class="btn btn-primary book-ticket-btn" data-event-id="1">Book Pass</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Event Card 2: Low-Cost Non-Academic Event (Movie Night) -->
+                <article class="event-card" data-school="dusa" data-category="non-academic">
+                    <div class="card-image-wrapper">
+                        <span class="badge badge-school">DUSA Central</span>
+                        <span class="badge badge-category">Non-Academic</span>
+                        <div class="placeholder-image" style="background-color: #4a2c40;">Movie Night</div>
+                    </div>
+                    <div class="card-content">
+                        <h4 class="event-title">Outdoor Campus Movie Night & Popcorn</h4>
+                        <div class="event-details">
+                            <p class="detail-item"><strong>Date:</strong> Sat, 15th Nov • 6:30 PM</p>
+                            <p class="detail-item"><strong>Venue:</strong> Amphitheatre, Athi River</p>
+                            <p class="detail-item"><strong>Target:</strong> Open to All Students</p>
+                        </div>
+                        <div class="card-footer">
+                            <span class="price-badge paid-price">KSH 300</span>
+                            <button type="button" class="btn btn-primary book-ticket-btn" data-event-id="2">Buy Ticket</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Event Card 3: High-Tier International Trip -->
+                <article class="event-card" data-school="business" data-category="academic">
+                    <div class="card-image-wrapper">
+                        <span class="badge badge-school">School of Business</span>
+                        <span class="badge badge-category">Academic</span>
+                        <div class="placeholder-image" style="background-color: #0d47a1;">International Tour</div>
+                    </div>
+                    <div class="card-content">
+                        <h4 class="event-title">Rwanda Tech & Business Academic Tour</h4>
+                        <div class="event-details">
+                            <p class="detail-item"><strong>Date:</strong> 10th - 16th Dec 2026</p>
+                            <p class="detail-item"><strong>Venue:</strong> Kigali, Rwanda</p>
+                            <p class="detail-item"><strong>Target:</strong> Business & IT Students</p>
+                        </div>
+                        <div class="card-footer">
+                            <span class="price-badge paid-price">KSH 28,000</span>
+                            <button type="button" class="btn btn-primary book-ticket-btn" data-event-id="5">Reserve Spot</button>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 5. Footer -->
+    <footer class="main-footer">
+        <p>&copy; 2026 SupaPass Kenya • Daystar University ACS 355 Project</p>
+    </footer> 
+
+</body>
+</html>
