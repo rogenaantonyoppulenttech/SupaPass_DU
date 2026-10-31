@@ -17,9 +17,10 @@
                 <p class="brand-tagline">Daystar University Consolidated Campus Hub</p>
             </div>
             
-            <!-- Auth & Event Submission Hooks for JavaScript -->
+            <!-- Auth, My Tickets & Event Submission Hooks -->
             <div class="auth-buttons">
                 <button type="button" class="btn btn-primary" id="open-create-event-btn" style="display: none;">+ Post Event</button>
+                <button type="button" class="btn btn-outline" id="open-my-tickets-btn" style="display: none;">🎟 My Passes</button>
                 <button type="button" class="btn btn-outline" id="open-auth-btn">Sign In / Register</button>
             </div>
         </div>
@@ -79,11 +80,10 @@
                 <span class="events-count" id="events-count-badge">6 Events Listed</span>
             </div>
 
-            <!-- Responsive CSS Grid (3 Columns Desktop PC, 1 Column Mobile) -->
             <div class="event-grid" id="event-grid-container">
 
-                <!-- Event Card 1: Free Academic Event -->
-                <article class="event-card" data-school="science" data-category="academic">
+                <!-- Event Card 1 -->
+                <article class="event-card" data-id="1" data-school="science" data-category="academic">
                     <div class="card-image-wrapper">
                         <span class="badge badge-school">School of Science</span>
                         <span class="badge badge-category">Academic</span>
@@ -91,6 +91,7 @@
                     </div>
                     <div class="card-content">
                         <h4 class="event-title">Applied AI & Cloud Computing Workshop</h4>
+                        <p class="event-desc-snippet">Hands-on session on AI model deployments, cloud infrastructure, and modern data workflows.</p>
                         <div class="event-details">
                             <p class="detail-item"><strong>Date:</strong> Fri, 14th Nov • 10:00 AM</p>
                             <p class="detail-item"><strong>Venue:</strong> Athi River Campus, PAC Room 3</p>
@@ -98,13 +99,16 @@
                         </div>
                         <div class="card-footer">
                             <span class="price-badge free-price">KSH 0 (Free Entry)</span>
-                            <button type="button" class="btn btn-primary book-ticket-btn" data-event-id="1">Book Pass</button>
+                            <div class="card-actions">
+                                <button type="button" class="btn btn-outline view-details-btn">Details</button>
+                                <button type="button" class="btn btn-primary book-ticket-btn">Book Pass</button>
+                            </div>
                         </div>
                     </div>
                 </article>
 
-                <!-- Event Card 2: Non-Academic Event -->
-                <article class="event-card" data-school="dusa" data-category="non-academic">
+                <!-- Event Card 2 -->
+                <article class="event-card" data-id="2" data-school="dusa" data-category="non-academic">
                     <div class="card-image-wrapper">
                         <span class="badge badge-school">DUSA Central</span>
                         <span class="badge badge-category">Non-Academic</span>
@@ -112,6 +116,7 @@
                     </div>
                     <div class="card-content">
                         <h4 class="event-title">Outdoor Campus Movie Night & Popcorn</h4>
+                        <p class="event-desc-snippet">Relax and socialise under the stars with popular film screenings, popcorn, and games.</p>
                         <div class="event-details">
                             <p class="detail-item"><strong>Date:</strong> Sat, 15th Nov • 6:30 PM</p>
                             <p class="detail-item"><strong>Venue:</strong> Amphitheatre, Athi River</p>
@@ -119,13 +124,16 @@
                         </div>
                         <div class="card-footer">
                             <span class="price-badge paid-price">KSH 300</span>
-                            <button type="button" class="btn btn-primary book-ticket-btn" data-event-id="2">Buy Ticket</button>
+                            <div class="card-actions">
+                                <button type="button" class="btn btn-outline view-details-btn">Details</button>
+                                <button type="button" class="btn btn-primary book-ticket-btn">Buy Ticket</button>
+                            </div>
                         </div>
                     </div>
                 </article>
 
-                <!-- Event Card 3: Law Seminar -->
-                <article class="event-card" data-school="law" data-category="academic">
+                <!-- Event Card 3 -->
+                <article class="event-card" data-id="3" data-school="law" data-category="academic">
                     <div class="card-image-wrapper">
                         <span class="badge badge-school">School of Law</span>
                         <span class="badge badge-category">Academic</span>
@@ -133,6 +141,7 @@
                     </div>
                     <div class="card-content">
                         <h4 class="event-title">Kenya Cybercrime Act Legal Symposium</h4>
+                        <p class="event-desc-snippet">Exploring digital privacy laws, legal ramifications of cyber offences, and tech policy.</p>
                         <div class="event-details">
                             <p class="detail-item"><strong>Date:</strong> Tue, 18th Nov • 2:00 PM</p>
                             <p class="detail-item"><strong>Venue:</strong> Nairobi Campus, DAC Hall</p>
@@ -140,70 +149,10 @@
                         </div>
                         <div class="card-footer">
                             <span class="price-badge free-price">KSH 0 (Free Entry)</span>
-                            <button type="button" class="btn btn-primary book-ticket-btn" data-event-id="3">Book Pass</button>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Event Card 4: Graduation Gala -->
-                <article class="event-card" data-school="dusa" data-category="non-academic">
-                    <div class="card-image-wrapper">
-                        <span class="badge badge-school">DUSA Central</span>
-                        <span class="badge badge-category">Non-Academic</span>
-                        <div class="placeholder-image" style="background-color: #5c3c10;">Graduation Gala</div>
-                    </div>
-                    <div class="card-content">
-                        <h4 class="event-title">Daystar Annual Graduation Gala</h4>
-                        <div class="event-details">
-                            <p class="detail-item"><strong>Date:</strong> Fri, 28th Nov • 6:00 PM</p>
-                            <p class="detail-item"><strong>Venue:</strong> Safari Park Hotel, Nairobi</p>
-                            <p class="detail-item"><strong>Target:</strong> Graduands & Guests</p>
-                        </div>
-                        <div class="card-footer">
-                            <span class="price-badge paid-price">KSH 2,500</span>
-                            <button type="button" class="btn btn-primary book-ticket-btn" data-event-id="4">Buy Ticket</button>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Event Card 5: Business International Trip -->
-                <article class="event-card" data-school="business" data-category="academic">
-                    <div class="card-image-wrapper">
-                        <span class="badge badge-school">School of Business</span>
-                        <span class="badge badge-category">Academic</span>
-                        <div class="placeholder-image" style="background-color: #0d47a1;">International Tour</div>
-                    </div>
-                    <div class="card-content">
-                        <h4 class="event-title">Rwanda Tech & Business Academic Tour</h4>
-                        <div class="event-details">
-                            <p class="detail-item"><strong>Date:</strong> 10th - 16th Dec 2026</p>
-                            <p class="detail-item"><strong>Venue:</strong> Kigali, Rwanda</p>
-                            <p class="detail-item"><strong>Target:</strong> Business & IT Students</p>
-                        </div>
-                        <div class="card-footer">
-                            <span class="price-badge paid-price">KSH 28,000</span>
-                            <button type="button" class="btn btn-primary book-ticket-btn" data-event-id="5">Reserve Spot</button>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Event Card 6: Nursing Seminar -->
-                <article class="event-card" data-school="nursing" data-category="academic">
-                    <div class="card-image-wrapper">
-                        <span class="badge badge-school">School of Nursing</span>
-                        <span class="badge badge-category">Academic</span>
-                        <div class="placeholder-image" style="background-color: #880e4f;">Health Seminar</div>
-                    </div>
-                    <div class="card-content">
-                        <h4 class="event-title">Community First Aid & Life Support</h4>
-                        <div class="event-details">
-                            <p class="detail-item"><strong>Date:</strong> Wed, 2nd Dec • 9:00 AM</p>
-                            <p class="detail-item"><strong>Venue:</strong> Science Complex Lab 1</p>
-                            <p class="detail-item"><strong>Target:</strong> Nursing & General Campus</p>
-                        </div>
-                        <div class="card-footer">
-                            <span class="price-badge free-price">KSH 0 (Free Entry)</span>
-                            <button type="button" class="btn btn-primary book-ticket-btn" data-event-id="6">Book Pass</button>
+                            <div class="card-actions">
+                                <button type="button" class="btn btn-outline view-details-btn">Details</button>
+                                <button type="button" class="btn btn-primary book-ticket-btn">Book Pass</button>
+                            </div>
                         </div>
                     </div>
                 </article>
@@ -225,7 +174,6 @@
                 <ul>
                     <li><a href="https://wa.me/254700000000" target="_blank">💬 DUSA WhatsApp Updates</a></li>
                     <li><a href="mailto:support@supapass.daystar.ac.ke">📧 support@supapass.daystar.ac.ke</a></li>
-                    <li><a href="#help">Help & FAQ</a></li>
                 </ul>
             </div>
             <div class="footer-col">
@@ -238,7 +186,7 @@
         </div>
     </footer>
 
-    <!-- 6. Auth Modal (Forced on page load until login/register) -->
+    <!-- 6. Auth Modal -->
     <div class="modal-overlay" id="auth-modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -318,7 +266,7 @@
         </div>
     </div>
 
-    <!-- 7. Post Event Modal (For Staff Only) -->
+    <!-- 7. Event Creation Modal (Staff Only) -->
     <div class="modal-overlay" id="add-event-modal" style="display: none;">
         <div class="modal-content modal-large">
             <div class="modal-header">
@@ -329,6 +277,11 @@
                 <div class="form-group">
                     <label for="event-title">Event Title</label>
                     <input type="text" id="event-title" class="form-control" placeholder="e.g. Annual Tech Hackathon" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="event-description">Full Event Description</label>
+                    <textarea id="event-description" class="form-control" rows="3" placeholder="Provide event agenda and details..." required></textarea>
                 </div>
 
                 <div class="form-row">
@@ -378,6 +331,78 @@
 
                 <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Publish Event</button>
             </form>
+        </div>
+    </div>
+
+    <!-- 8. Single-Page Event Detail View Modal -->
+    <div class="modal-overlay" id="event-detail-modal" style="display: none;">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3 id="detail-title">Event Details</h3>
+                <button type="button" class="close-modal-btn" id="close-detail-modal">&times;</button>
+            </div>
+            <div class="detail-modal-body">
+                <p class="detail-description" id="detail-description"></p>
+                <div class="detail-meta">
+                    <p><strong>Hosting Body:</strong> <span id="detail-school"></span></p>
+                    <p><strong>Category:</strong> <span id="detail-category"></span></p>
+                    <p><strong>Date & Time:</strong> <span id="detail-date"></span></p>
+                    <p><strong>Venue:</strong> <span id="detail-venue"></span></p>
+                    <p><strong>Target Audience:</strong> <span id="detail-target"></span></p>
+                    <p><strong>Price:</strong> <span id="detail-price"></span></p>
+                </div>
+            </div>
+            <div style="margin-top: 1.5rem; text-align: right;">
+                <button type="button" class="btn btn-primary" id="detail-book-now-btn">Book Pass Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 9. Visual QR Code Ticket Receipt Modal -->
+    <div class="modal-overlay" id="ticket-receipt-modal" style="display: none;">
+        <div class="modal-content modal-ticket">
+            <div class="modal-header">
+                <h3>🎫 Official Digital Pass</h3>
+                <button type="button" class="close-modal-btn" id="close-receipt-modal">&times;</button>
+            </div>
+            <div class="ticket-receipt-card">
+                <div class="ticket-header">
+                    <h4 id="receipt-event-title">Event Title</h4>
+                    <span class="ticket-id-tag" id="receipt-ticket-no">SP-2026-0000</span>
+                </div>
+                
+                <!-- Simulated Scannable QR Code -->
+                <div class="qr-wrapper">
+                    <div class="qr-code-box">
+                        <div class="qr-corner top-left"></div>
+                        <div class="qr-corner top-right"></div>
+                        <div class="qr-corner bottom-left"></div>
+                        <div class="qr-center-pattern"></div>
+                    </div>
+                    <p class="qr-label">Scan at Entry Gate</p>
+                </div>
+
+                <div class="receipt-details">
+                    <p><strong>Holder:</strong> <span id="receipt-holder-name"></span></p>
+                    <p><strong>School ID:</strong> <span id="receipt-school-id"></span></p>
+                    <p><strong>National ID:</strong> <span id="receipt-national-id"></span></p>
+                    <p><strong>School/Faculty:</strong> <span id="receipt-school"></span></p>
+                    <p><strong>Status:</strong> <span class="status-valid">VALID & CONFIRMED</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 10. "My Booked Passes" History Modal -->
+    <div class="modal-overlay" id="my-tickets-modal" style="display: none;">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3>🎟 My Booked Event Passes</h3>
+                <button type="button" class="close-modal-btn" id="close-my-tickets-modal">&times;</button>
+            </div>
+            <div class="tickets-list-container" id="my-tickets-list">
+                <!-- Booked passes dynamically rendered here -->
+            </div>
         </div>
     </div>
 
