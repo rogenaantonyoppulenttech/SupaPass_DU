@@ -3,7 +3,6 @@
    Designed for Daystar University ACS 355 Project
    ========================================================================== */
 
-/* 1. Global Variables & Resets */
 :root {
     --primary-red: #b40000;
     --primary-dark: #7a0000;
@@ -198,7 +197,6 @@ body {
     font-weight: 600;
 }
 
-/* Mobile Default: 1 Column */
 .event-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -364,7 +362,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.75);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -406,6 +404,7 @@ body {
 .auth-tabs {
     display: flex;
     gap: 0.5rem;
+    width: 100%;
 }
 
 .tab-btn {
@@ -417,6 +416,8 @@ body {
     cursor: pointer;
     color: var(--text-muted);
     border-bottom: 2px solid transparent;
+    flex: 1;
+    text-align: center;
 }
 
 .tab-btn.active {
@@ -433,7 +434,6 @@ body {
     flex: 1;
 }
 
-/* 8. Media Queries for Responsive Screens */
 @media (min-width: 640px) {
     .event-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -450,7 +450,6 @@ body {
     .event-grid {
         grid-template-columns: repeat(3, 1fr);
     }
-
     .hero-content h2 {
         font-size: 2.2rem;
     }

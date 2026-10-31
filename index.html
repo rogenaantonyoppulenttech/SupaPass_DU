@@ -19,22 +19,22 @@
             
             <!-- Auth & Event Submission Hooks for JavaScript -->
             <div class="auth-buttons">
-                <button type="button" class="btn btn-primary" id="open-create-event-btn">+ Post Event</button>
+                <button type="button" class="btn btn-primary" id="open-create-event-btn" style="display: none;">+ Post Event</button>
                 <button type="button" class="btn btn-outline" id="open-auth-btn">Sign In / Register</button>
             </div>
         </div>
     </header>
 
-    <!-- 2. Hero Section -->
-    <section class="hero-section">
+    <!-- 2. Hero Section (Hidden until logged in) -->
+    <section class="hero-section" id="hero-section" style="display: none;">
         <div class="hero-content">
             <h2>All Daystar Campus Events on One Single Page</h2>
             <p>Eliminating communication breakdown across scattered WhatsApp groups and email threads. Discover, filter, and access your event passes effortlessly.</p>
         </div>
     </section>
 
-    <!-- 3. Main Dashboard Container -->
-    <main class="main-container">
+    <!-- 3. Main Dashboard Container (Gated / Hidden until login) -->
+    <main class="main-container" id="main-dashboard" style="display: none;">
 
         <!-- Search & Filter Controls Panel -->
         <section class="filter-section">
@@ -238,28 +238,32 @@
         </div>
     </footer>
 
-    <!-- 6. Auth Modal (Login & Registration with Role Switcher) -->
-    <div class="modal-overlay" id="auth-modal" style="display: none;">
+    <!-- 6. Auth Modal (Forced on page load until login/register) -->
+    <div class="modal-overlay" id="auth-modal">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="auth-tabs">
                     <button type="button" class="tab-btn active" id="tab-login-btn">Sign In</button>
                     <button type="button" class="tab-btn" id="tab-register-btn">Register</button>
                 </div>
-                <button type="button" class="close-modal-btn" id="close-auth-modal">&times;</button>
             </div>
 
             <!-- Login Form -->
             <form id="login-form">
+                <div style="background: #e2e8f0; padding: 0.6rem; border-radius: 4px; font-size: 0.8rem; margin-bottom: 1rem; color: var(--text-dark);">
+                    💡 <strong>Test Credentials:</strong><br>
+                    • Staff/Admin: <code>admin</code> / <code>admin</code><br>
+                    • Student Demo: <code>student</code> / <code>admin</code>
+                </div>
                 <div class="form-group">
-                    <label for="login-email">Daystar Email / Reg No.</label>
-                    <input type="text" id="login-email" class="form-control" placeholder="e.g. 25-0141@daystar.ac.ke" required>
+                    <label for="login-username">Username or Email</label>
+                    <input type="text" id="login-username" class="form-control" placeholder="e.g. admin or student" required>
                 </div>
                 <div class="form-group">
                     <label for="login-password">Password</label>
-                    <input type="password" id="login-password" class="form-control" placeholder="Enter password" required>
+                    <input type="password" id="login-password" class="form-control" placeholder="admin" required>
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">Sign In</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">Sign In to SupaPass</button>
             </form>
 
             <!-- Registration Form -->
@@ -274,58 +278,68 @@
                     <input type="email" id="reg-email" class="form-control" placeholder="user@daystar.ac.ke" required>
                 </div>
 
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="reg-idnumber">National ID Number</label>
+                        <input type="text" id="reg-idnumber" class="form-control" placeholder="e.g. 12345678" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-schoolid">School ID / Reg Number</label>
+                        <input type="text" id="reg-schoolid" class="form-control" placeholder="e.g. 25-0141" required>
+                    </div>
+                </div>
+
                 <div class="form-group">
-                    <label for="reg-role">User Type / Account Role</label>
+                    <label for="reg-role">Account Role</label>
                     <select id="reg-role" class="form-control" required>
                         <option value="student">Student</option>
-                        <option value="student_leader">Student Leader (DUSA / Clubs)</option>
-                        <option value="staff">Faculty / Department Staff</option>
+                        <option value="staff">Staff / Admin</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label for="reg-school">School / Department</label>
                     <select id="reg-school" class="form-control" required>
-                        <option value="science">School of Science & Technology</option>
-                        <option value="law">School of Law</option>
-                        <option value="nursing">School of Nursing</option>
-                        <option value="business">School of Business & Economics</option>
-                        <option value="dusa">DUSA / Central Administration</option>
+                        <option value="School of Science & Technology">School of Science & Technology</option>
+                        <option value="School of Law">School of Law</option>
+                        <option value="School of Nursing">School of Nursing</option>
+                        <option value="School of Business & Economics">School of Business & Economics</option>
+                        <option value="DUSA Central Administration">DUSA Central Administration</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label for="reg-password">Password</label>
-                    <input type="password" id="reg-password" class="form-control" placeholder="Create secure password" required>
+                    <input type="password" id="reg-password" class="form-control" placeholder="Create password" required>
                 </div>
 
-                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">Create SupaPass Account</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">Register & Access Hub</button>
             </form>
         </div>
     </div>
 
-    <!-- 7. Post Event Modal (For Staff & Student Leaders) -->
+    <!-- 7. Post Event Modal (For Staff Only) -->
     <div class="modal-overlay" id="add-event-modal" style="display: none;">
         <div class="modal-content modal-large">
             <div class="modal-header">
-                <h3>Post New Campus Event</h3>
+                <h3>Post New Campus Event (Staff Portal)</h3>
                 <button type="button" class="close-modal-btn" id="close-event-modal">&times;</button>
             </div>
             <form id="create-event-form">
                 <div class="form-group">
                     <label for="event-title">Event Title</label>
-                    <input type="text" id="event-title" class="form-control" placeholder="e.g. Annual Tech & Innovation Hackathon" required>
+                    <input type="text" id="event-title" class="form-control" placeholder="e.g. Annual Tech Hackathon" required>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="event-school-select">Hosting School / Body</label>
                         <select id="event-school-select" class="form-control" required>
-                            <option value="science">School of Science & Tech</option>
-                            <option value="law">School of Law</option>
-                            <option value="nursing">School of Nursing</option>
-                            <option value="business">School of Business</option>
-                            <option value="dusa">DUSA Central</option>
+                            <option value="School of Science & Technology">School of Science & Tech</option>
+                            <option value="School of Law">School of Law</option>
+                            <option value="School of Nursing">School of Nursing</option>
+                            <option value="School of Business & Economics">School of Business</option>
+                            <option value="DUSA Central Administration">DUSA Central</option>
                         </select>
                     </div>
 
@@ -345,7 +359,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="event-venue">Venue / Campus Location</label>
+                        <label for="event-venue">Venue / Location</label>
                         <input type="text" id="event-venue" class="form-control" placeholder="e.g. Athi River PAC Room 3" required>
                     </div>
                 </div>
@@ -353,16 +367,16 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="event-target">Target Audience</label>
-                        <input type="text" id="event-target" class="form-control" placeholder="e.g. Science & Tech Students" required>
+                        <input type="text" id="event-target" class="form-control" placeholder="e.g. All Students" required>
                     </div>
 
                     <div class="form-group">
                         <label for="event-price">Ticket Price (KSH)</label>
-                        <input type="text" id="event-price" class="form-control" placeholder="e.g. 0 for Free or 500" required>
+                        <input type="text" id="event-price" class="form-control" placeholder="0 for Free" required>
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Publish Event to SupaPass Feed</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Publish Event</button>
             </form>
         </div>
     </div>
