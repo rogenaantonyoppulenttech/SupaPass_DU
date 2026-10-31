@@ -1,6 +1,5 @@
 /* ==========================================================================
    SupaPass Kenya - Complete Main Stylesheet
-   Designed for Daystar University ACS 355 Project
    ========================================================================== */
 
 :root {
@@ -222,6 +221,7 @@ body {
     display: flex;
     flex-direction: column;
     transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
 }
 
 .event-card:hover {
@@ -452,7 +452,7 @@ body {
     flex: 1;
 }
 
-/* Simulated QR Ticket Element */
+/* QR Ticket Element */
 .ticket-receipt-card {
     border: 2px dashed var(--primary-red);
     padding: 1.5rem;

@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SupaPass Kenya | Daystar Campus Event Hub</title>
-    <!-- External CSS link inside css/ folder -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -17,7 +16,6 @@
                 <p class="brand-tagline">Daystar University Consolidated Campus Hub</p>
             </div>
             
-            <!-- Auth, My Tickets & Event Submission Hooks -->
             <div class="auth-buttons">
                 <button type="button" class="btn btn-primary" id="open-create-event-btn" style="display: none;">+ Post Event</button>
                 <button type="button" class="btn btn-outline" id="open-my-tickets-btn" style="display: none;">🎟 My Passes</button>
@@ -30,47 +28,21 @@
     <section class="hero-section" id="hero-section" style="display: none;">
         <div class="hero-content">
             <h2>All Daystar Campus Events on One Single Page</h2>
-            <p>Eliminating communication breakdown across scattered WhatsApp groups and email threads. Discover, filter, and access your event passes effortlessly.</p>
+            <p>Eliminating communication breakdown across scattered WhatsApp groups and email threads.</p>
         </div>
     </section>
 
-    <!-- 3. Main Dashboard Container (Gated / Hidden until login) -->
+    <!-- 3. Main Dashboard Container (Hidden until logged in) -->
     <main class="main-container" id="main-dashboard" style="display: none;">
 
         <!-- Search & Filter Controls Panel -->
         <section class="filter-section">
             <form class="filter-form" id="event-filter-form" onsubmit="return false;">
                 
-                <!-- Search Input Hook -->
                 <div class="form-group search-group">
                     <label for="search-input">Search Events</label>
-                    <input type="text" id="search-input" class="form-control" placeholder="Search by event title, venue, or speaker...">
+                    <input type="text" id="search-input" class="form-control" placeholder="Search by title, venue, or speaker...">
                 </div>
-
-                <!-- School Filter Hook -->
-                 <!--nikitaka kuadd a school category i start here
-                  <option value="catergory i need to add eg ..(psychology)"> the branch of school the course belongs eg School of Psychology</option> 
-                  to the Filter Dropdown, 
-                 Registration Form Dropdown, and Staff Post Event Dropdown
-                STEP 1: UPDATE HTML DROPDOWNS (index.html)
-1. Search Filter Dropdown (`#school-filter`):
-   Add `<option value="psychology">School of Psychology</option>` so users can filter events specifically for this school.
-2. Registration Form Dropdown (`#reg-school`):
-   Add `<option value="School of Psychology">School of Psychology</option>` so new users can select it as their primary department.
-3. Event Creation Modal Dropdown (`#event-school-select`):
-   Add `<option value="School of Psychology">School of Psychology</option>` so Staff members can assign newly created events to this faculty.
-
-STEP 2: ADD SAMPLE EVENT CARD (index.html)
-Add a new `<article class="event-card">` element inside the `#event-grid-container` wrapper with the attributes:
-- `data-school="psychology"`
-- `data-category="academic"` (or `"non-academic"`)
-This provides an immediate sample event on page load that responds to search and filter queries.
-
-STEP 3: UPDATE JAVASCRIPT ATTRIBUTE MAPPING (js/app.js)
-Inside the `createEventForm` submit event listener:
-Add a conditional check for `school.toLowerCase().includes('psychology')` to map the selected dropdown option to the string `'psychology'`.
-This ensures newly posted staff events receive the correct `data-school="psychology"` attribute required for real-time filtering, local storage persistence, and digital pass receipt generation.
-                 -->
 
                 <div class="form-group">
                     <label for="school-filter">Filter by School / Faculty</label>
@@ -80,11 +52,11 @@ This ensures newly posted staff events receive the correct `data-school="psychol
                         <option value="law">School of Law</option>
                         <option value="nursing">School of Nursing</option>
                         <option value="business">School of Business & Economics</option>
+                        <option value="psychology">School of Psychology</option>
                         <option value="dusa">DUSA / Central Student Body</option>
                     </select>
                 </div>
 
-                <!-- Category Filter Hook -->
                 <div class="form-group">
                     <label for="category-filter">Event Category</label>
                     <select id="category-filter" class="form-control">
@@ -101,7 +73,7 @@ This ensures newly posted staff events receive the correct `data-school="psychol
         <section class="events-section">
             <div class="events-header">
                 <h3>Upcoming Campus Events</h3>
-                <span class="events-count" id="events-count-badge">6 Events Listed</span>
+                <span class="events-count" id="events-count-badge">4 Events Listed</span>
             </div>
 
             <div class="event-grid" id="event-grid-container">
@@ -181,22 +153,46 @@ This ensures newly posted staff events receive the correct `data-school="psychol
                     </div>
                 </article>
 
+                <!-- Event Card 4: Psychology Example -->
+                <article class="event-card" data-id="4" data-school="psychology" data-category="academic">
+                    <div class="card-image-wrapper">
+                        <span class="badge badge-school">School of Psychology</span>
+                        <span class="badge badge-category">Academic</span>
+                        <div class="placeholder-image" style="background-color: #4a148c;">Mental Health</div>
+                    </div>
+                    <div class="card-content">
+                        <h4 class="event-title">Youth Mental Health & Counseling Forum</h4>
+                        <p class="event-desc-snippet">Interactive workshop on managing academic stress, peer support networks, and wellness strategies.</p>
+                        <div class="event-details">
+                            <p class="detail-item"><strong>Date:</strong> Thu, 26th Nov • 11:00 AM</p>
+                            <p class="detail-item"><strong>Venue:</strong> Athi River Campus, Chapel Hall</p>
+                            <p class="detail-item"><strong>Target:</strong> All Daystar Students</p>
+                        </div>
+                        <div class="card-footer">
+                            <span class="price-badge free-price">KSH 0 (Free Entry)</span>
+                            <div class="card-actions">
+                                <button type="button" class="btn btn-outline view-details-btn">Details</button>
+                                <button type="button" class="btn btn-primary book-ticket-btn">Book Pass</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
             </div>
         </section>
 
     </main>
 
-    <!-- 5. Professional Footer -->
+    <!-- 5. Footer -->
     <footer class="main-footer">
         <div class="footer-container">
             <div class="footer-col">
                 <h4>SupaPass Kenya</h4>
-                <p>Consolidating Daystar University campus events, DUSA activities, and academic workshops into one unified hub.</p>
+                <p>Consolidating Daystar University campus events into one unified hub.</p>
             </div>
             <div class="footer-col">
-                <h4>Quick Support & Channels</h4>
+                <h4>Quick Support</h4>
                 <ul>
-                    <li><a href="https://wa.me/254700000000" target="_blank">💬 DUSA WhatsApp Updates</a></li>
                     <li><a href="mailto:support@supapass.daystar.ac.ke">📧 support@supapass.daystar.ac.ke</a></li>
                 </ul>
             </div>
@@ -206,7 +202,7 @@ This ensures newly posted staff events receive the correct `data-school="psychol
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 SupaPass Kenya • Daystar University ACS 355 Project. All rights reserved.</p>
+            <p>&copy; 2026 SupaPass Kenya • Daystar University ACS 355 Project.</p>
         </div>
     </footer>
 
@@ -222,14 +218,14 @@ This ensures newly posted staff events receive the correct `data-school="psychol
 
             <!-- Login Form -->
             <form id="login-form">
-                <div style="background: #e2e8f0; padding: 0.6rem; border-radius: 4px; font-size: 0.8rem; margin-bottom: 1rem; color: var(--text-dark);">
+                <div style="background: #e2e8f0; padding: 0.6rem; border-radius: 4px; font-size: 0.8rem; margin-bottom: 1rem; color: #222;">
                     💡 <strong>Test Credentials:</strong><br>
                     • Staff/Admin: <code>admin</code> / <code>admin</code><br>
                     • Student Demo: <code>student</code> / <code>admin</code>
                 </div>
                 <div class="form-group">
                     <label for="login-username">Username or Email</label>
-                    <input type="text" id="login-username" class="form-control" placeholder="e.g. admin or student" required>
+                    <input type="text" id="login-username" class="form-control" placeholder="admin or student" required>
                 </div>
                 <div class="form-group">
                     <label for="login-password">Password</label>
@@ -242,7 +238,7 @@ This ensures newly posted staff events receive the correct `data-school="psychol
             <form id="register-form" style="display: none;">
                 <div class="form-group">
                     <label for="reg-fullname">Full Name</label>
-                    <input type="text" id="reg-fullname" class="form-control" placeholder="e.g. Group 7" required>
+                    <input type="text" id="reg-fullname" class="form-control" placeholder="e.g. Antony Owande" required>
                 </div>
 
                 <div class="form-group">
@@ -253,11 +249,11 @@ This ensures newly posted staff events receive the correct `data-school="psychol
                 <div class="form-row">
                     <div class="form-group">
                         <label for="reg-idnumber">National ID Number</label>
-                        <input type="text" id="reg-idnumber" class="form-control" placeholder="e.g. 12345678" required>
+                        <input type="text" id="reg-idnumber" class="form-control" placeholder="12345678" required>
                     </div>
                     <div class="form-group">
                         <label for="reg-schoolid">School ID / Reg Number</label>
-                        <input type="text" id="reg-schoolid" class="form-control" placeholder="e.g. 25-0141" required>
+                        <input type="text" id="reg-schoolid" class="form-control" placeholder="25-0141" required>
                     </div>
                 </div>
 
@@ -276,6 +272,7 @@ This ensures newly posted staff events receive the correct `data-school="psychol
                         <option value="School of Law">School of Law</option>
                         <option value="School of Nursing">School of Nursing</option>
                         <option value="School of Business & Economics">School of Business & Economics</option>
+                        <option value="School of Psychology">School of Psychology</option>
                         <option value="DUSA Central Administration">DUSA Central Administration</option>
                     </select>
                 </div>
@@ -290,7 +287,7 @@ This ensures newly posted staff events receive the correct `data-school="psychol
         </div>
     </div>
 
-    <!-- 7. Event Creation Modal (Staff Only) -->
+    <!-- 7. Post Event Modal -->
     <div class="modal-overlay" id="add-event-modal" style="display: none;">
         <div class="modal-content modal-large">
             <div class="modal-header">
@@ -305,7 +302,7 @@ This ensures newly posted staff events receive the correct `data-school="psychol
 
                 <div class="form-group">
                     <label for="event-description">Full Event Description</label>
-                    <textarea id="event-description" class="form-control" rows="3" placeholder="Provide event agenda and details..." required></textarea>
+                    <textarea id="event-description" class="form-control" rows="3" placeholder="Provide event agenda..." required></textarea>
                 </div>
 
                 <div class="form-row">
@@ -316,6 +313,7 @@ This ensures newly posted staff events receive the correct `data-school="psychol
                             <option value="School of Law">School of Law</option>
                             <option value="School of Nursing">School of Nursing</option>
                             <option value="School of Business & Economics">School of Business</option>
+                            <option value="School of Psychology">School of Psychology</option>
                             <option value="DUSA Central Administration">DUSA Central</option>
                         </select>
                     </div>
@@ -332,19 +330,19 @@ This ensures newly posted staff events receive the correct `data-school="psychol
                 <div class="form-row">
                     <div class="form-group">
                         <label for="event-date">Date & Time</label>
-                        <input type="text" id="event-date" class="form-control" placeholder="e.g. Fri, 20th Nov • 10:00 AM" required>
+                        <input type="text" id="event-date" class="form-control" placeholder="Fri, 20th Nov • 10:00 AM" required>
                     </div>
 
                     <div class="form-group">
                         <label for="event-venue">Venue / Location</label>
-                        <input type="text" id="event-venue" class="form-control" placeholder="e.g. Athi River PAC Room 3" required>
+                        <input type="text" id="event-venue" class="form-control" placeholder="Athi River PAC Room 3" required>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="event-target">Target Audience</label>
-                        <input type="text" id="event-target" class="form-control" placeholder="e.g. All Students" required>
+                        <input type="text" id="event-target" class="form-control" placeholder="All Students" required>
                     </div>
 
                     <div class="form-group">
@@ -358,7 +356,7 @@ This ensures newly posted staff events receive the correct `data-school="psychol
         </div>
     </div>
 
-    <!-- 8. Single-Page Event Detail View Modal -->
+    <!-- 8. Event Detail Modal -->
     <div class="modal-overlay" id="event-detail-modal" style="display: none;">
         <div class="modal-content modal-large">
             <div class="modal-header">
@@ -366,8 +364,8 @@ This ensures newly posted staff events receive the correct `data-school="psychol
                 <button type="button" class="close-modal-btn" id="close-detail-modal">&times;</button>
             </div>
             <div class="detail-modal-body">
-                <p class="detail-description" id="detail-description"></p>
-                <div class="detail-meta">
+                <p class="detail-description" id="detail-description" style="margin-bottom: 1rem; color: #222;"></p>
+                <div class="detail-meta" style="background: #f8fafc; padding: 1rem; border-radius: 6px;">
                     <p><strong>Hosting Body:</strong> <span id="detail-school"></span></p>
                     <p><strong>Category:</strong> <span id="detail-category"></span></p>
                     <p><strong>Date & Time:</strong> <span id="detail-date"></span></p>
@@ -382,7 +380,7 @@ This ensures newly posted staff events receive the correct `data-school="psychol
         </div>
     </div>
 
-    <!-- 9. Visual QR Code Ticket Receipt Modal -->
+    <!-- 9. QR Receipt Modal -->
     <div class="modal-overlay" id="ticket-receipt-modal" style="display: none;">
         <div class="modal-content modal-ticket">
             <div class="modal-header">
@@ -395,7 +393,6 @@ This ensures newly posted staff events receive the correct `data-school="psychol
                     <span class="ticket-id-tag" id="receipt-ticket-no">SP-2026-0000</span>
                 </div>
                 
-                <!-- Simulated Scannable QR Code -->
                 <div class="qr-wrapper">
                     <div class="qr-code-box">
                         <div class="qr-corner top-left"></div>
@@ -417,7 +414,7 @@ This ensures newly posted staff events receive the correct `data-school="psychol
         </div>
     </div>
 
-    <!-- 10. "My Booked Passes" History Modal -->
+    <!-- 10. "My Booked Passes" Modal -->
     <div class="modal-overlay" id="my-tickets-modal" style="display: none;">
         <div class="modal-content modal-large">
             <div class="modal-header">
@@ -425,12 +422,11 @@ This ensures newly posted staff events receive the correct `data-school="psychol
                 <button type="button" class="close-modal-btn" id="close-my-tickets-modal">&times;</button>
             </div>
             <div class="tickets-list-container" id="my-tickets-list">
-                <!-- Booked passes dynamically rendered here -->
+                <!-- Dynamically rendered -->
             </div>
         </div>
     </div>
 
-    <!-- JavaScript integration point -->
     <script src="js/app.js"></script>
 </body>
 </html>
