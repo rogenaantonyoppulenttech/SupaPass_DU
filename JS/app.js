@@ -1,6 +1,6 @@
 /* ==========================================================================
    SupaPass Kenya - Main Application JavaScript (`js/app.js`)
-   Handles Modals, Tab Switching, Live Search/Filtering, and Event Posting
+   Handles Modals, Tab Switching, Live Search/Filtering, Event Posting & Booking
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -35,35 +35,30 @@ document.addEventListener('DOMContentLoaded', () => {
        2. Modal Control Logic (Open / Close)
        ========================================================================== */
     
-    // Open Auth Modal
     if (openAuthBtn) {
         openAuthBtn.addEventListener('click', () => {
             authModal.style.display = 'flex';
         });
     }
 
-    // Close Auth Modal
     if (closeAuthModal) {
         closeAuthModal.addEventListener('click', () => {
             authModal.style.display = 'none';
         });
     }
 
-    // Open Post Event Modal
     if (openCreateEventBtn) {
         openCreateEventBtn.addEventListener('click', () => {
             addEventModal.style.display = 'flex';
         });
     }
 
-    // Close Post Event Modal
     if (closeEventModal) {
         closeEventModal.addEventListener('click', () => {
             addEventModal.style.display = 'none';
         });
     }
 
-    // Close modals if user clicks outside the modal content box
     window.addEventListener('click', (e) => {
         if (e.target === authModal) authModal.style.display = 'none';
         if (e.target === addEventModal) addEventModal.style.display = 'none';
@@ -106,7 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const cardCategory = card.getAttribute('data-category');
             const cardText = card.textContent.toLowerCase();
 
-            // Check match conditions
             const matchesSearch = cardText.includes(searchTerm);
             const matchesSchool = (selectedSchool === 'all' || cardSchool === selectedSchool);
             const matchesCategory = (selectedCategory === 'all' || cardCategory === selectedCategory);
@@ -119,13 +113,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Update count badge dynamically
         if (eventsCountBadge) {
             eventsCountBadge.textContent = `${visibleCount} Events Listed`;
         }
     }
 
-    // Attach listeners to filter inputs
     if (searchInput) searchInput.addEventListener('keyup', filterEvents);
     if (schoolFilter) schoolFilter.addEventListener('change', filterEvents);
     if (categoryFilter) categoryFilter.addEventListener('change', filterEvents);
@@ -138,7 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
         createEventForm.addEventListener('submit', (e) => {
             e.preventDefault();
 
-            // Collect form values
             const title = document.getElementById('event-title').value;
             const school = document.getElementById('event-school-select').value;
             const category = document.getElementById('event-cat-select').value;
@@ -147,12 +138,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const target = document.getElementById('event-target').value;
             const price = document.getElementById('event-price').value;
 
-            // Format price badge text
             const isFree = (price === '0' || price.toLowerCase().includes('free'));
             const priceText = isFree ? 'KSH 0 (Free Entry)' : `KSH ${price}`;
             const priceClass = isFree ? 'free-price' : 'paid-price';
 
-            // Create new article element
             const newCard = document.createElement('article');
             newCard.className = 'event-card';
             newCard.setAttribute('data-school', school);
@@ -178,17 +167,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
 
-            // Prepend new card to the grid container
             eventGridContainer.prepend(newCard);
-
-            // Reset form and close modal
             createEventForm.reset();
             addEventModal.style.display = 'none';
-
-            // Refresh filter count
             filterEvents();
             alert('Event successfully published to SupaPass Feed!');
         });
     }
+
+
+    /* ==========================================================================
+       6. Interactive Booking Logic for Event Cards
+       ========================================================================== */
+    document.addEventListener('click', (e) => {
+        if (e.target && e.target.classList.contains('book-ticket-btn')) {
+            const card = e.target.closest('.event-card');
+            const title = card ? card.querySelector('.event-title').textContent : 'Selected Event';
+            alert(`Booking initiated for: "${title}". Pass generation prompt triggered successfully!`);
+        }
+    });
 
 });
