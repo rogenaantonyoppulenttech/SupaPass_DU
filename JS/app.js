@@ -1,40 +1,51 @@
 /* ==========================================================================
-   SupaPass Kenya - Complete Application JavaScript (`js/app.js`)
-   Consolidated Script: Auth Gate, LocalStorage DB, Role-Based Access & Ticketing
+   SupaPass Kenya - Complete Application Logic (`js/app.js`)
+   Features: Auth Gate, LocalStorage Persistence, QR Ticket Receipts,
+   "My Passes" History Modal, Event Detail Modal & Staff Event Deletion
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
 
     let currentUser = null;
 
-    // DOM Elements
+    // Core Elements
     const authModal = document.getElementById('auth-modal');
     const heroSection = document.getElementById('hero-section');
     const mainDashboard = document.getElementById('main-dashboard');
     const openCreateEventBtn = document.getElementById('open-create-event-btn');
+    const openMyTicketsBtn = document.getElementById('open-my-tickets-btn');
     const openAuthBtn = document.getElementById('open-auth-btn');
 
+    // Modals & Close Hooks
     const addEventModal = document.getElementById('add-event-modal');
     const closeEventModal = document.getElementById('close-event-modal');
 
-    // Auth Tabs & Forms
+    const eventDetailModal = document.getElementById('event-detail-modal');
+    const closeDetailModal = document.getElementById('close-detail-modal');
+
+    const ticketReceiptModal = document.getElementById('ticket-receipt-modal');
+    const closeReceiptModal = document.getElementById('close-receipt-modal');
+
+    const myTicketsModal = document.getElementById('my-tickets-modal');
+    const closeMyTicketsModal = document.getElementById('close-my-tickets-modal');
+
+    // Forms
     const tabLoginBtn = document.getElementById('tab-login-btn');
     const tabRegisterBtn = document.getElementById('tab-register-btn');
     const loginForm = document.getElementById('login-form');
     const registerForm = document.getElementById('register-form');
+    const createEventForm = document.getElementById('create-event-form');
 
-    // Filtering Inputs
+    // Filters & Grid
     const searchInput = document.getElementById('search-input');
     const schoolFilter = document.getElementById('school-filter');
     const categoryFilter = document.getElementById('category-filter');
     const eventGridContainer = document.getElementById('event-grid-container');
     const eventsCountBadge = document.getElementById('events-count-badge');
 
-    const createEventForm = document.getElementById('create-event-form');
-
 
     /* ==========================================================================
-       1. Helper Functions: User Database in LocalStorage
+       1. Storage Helpers (Users & Tickets Persistence)
        ========================================================================== */
     function getStoredUsers() {
         const users = localStorage.getItem('supapass_users');
@@ -47,9 +58,20 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('supapass_users', JSON.stringify(users));
     }
 
+    function getStoredTickets() {
+        const tickets = localStorage.getItem('supapass_tickets');
+        return tickets ? JSON.parse(tickets) : [];
+    }
+
+    function saveTicketToDatabase(ticket) {
+        const tickets = getStoredTickets();
+        tickets.push(ticket);
+        localStorage.setItem('supapass_tickets', JSON.stringify(tickets));
+    }
+
 
     /* ==========================================================================
-       2. Force Auth Gate on Load
+       2. Auth Gate Enforcement
        ========================================================================== */
     function checkAuthGate() {
         if (!currentUser) {
@@ -57,12 +79,13 @@ document.addEventListener('DOMContentLoaded', () => {
             heroSection.style.display = 'none';
             mainDashboard.style.display = 'none';
             if (openCreateEventBtn) openCreateEventBtn.style.display = 'none';
+            if (openMyTicketsBtn) openMyTicketsBtn.style.display = 'none';
         } else {
             authModal.style.display = 'none';
             heroSection.style.display = 'block';
             mainDashboard.style.display = 'block';
+            if (openMyTicketsBtn) openMyTicketsBtn.style.display = 'inline-block';
             
-            // Show Post Event button ONLY if user is staff
             if (currentUser.role === 'staff') {
                 openCreateEventBtn.style.display = 'inline-block';
             } else {
@@ -71,6 +94,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             openAuthBtn.textContent = `👤 ${currentUser.name} (${currentUser.role.toUpperCase()})`;
             openAuthBtn.style.backgroundColor = '#2e7d32';
+
+            // Refresh Staff specific card controls (e.g. Delete Buttons)
+            renderStaffControls();
         }
     }
 
@@ -78,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* ==========================================================================
-       3. Auth Tab Switcher (Sign In vs Register)
+       3. Auth Switcher & Form Submissions
        ========================================================================== */
     if (tabLoginBtn && tabRegisterBtn) {
         tabLoginBtn.addEventListener('click', () => {
@@ -96,18 +122,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-
-    /* ==========================================================================
-       4. Login Logic (Checks LocalStorage + Presentation Test Defaults)
-       ========================================================================== */
     if (loginForm) {
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
-
             const usernameInput = document.getElementById('login-username').value.trim().toLowerCase();
             const passwordInput = document.getElementById('login-password').value.trim();
 
-            // 1. Presentation Test Defaults
             if (usernameInput === 'admin' && passwordInput === 'admin') {
                 currentUser = {
                     name: 'System Admin (Staff)',
@@ -127,7 +147,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     school: 'School of Science & Technology'
                 };
             } else {
-                // 2. Check Saved Registered Users in Browser Storage
                 const registeredUsers = getStoredUsers();
                 const matchedUser = registeredUsers.find(
                     u => (u.email.toLowerCase() === usernameInput || u.schoolId.toLowerCase() === usernameInput) && u.password === passwordInput
@@ -136,21 +155,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (matchedUser) {
                     currentUser = matchedUser;
                 } else {
-                    alert('Invalid login credentials! Please check your username/ID and password, or register a new account.');
+                    alert('Invalid login details! Please check username/password.');
                     return;
                 }
             }
 
             loginForm.reset();
             checkAuthGate();
-            alert(`Welcome back, ${currentUser.name}! Hub access granted.`);
+            alert(`Welcome back, ${currentUser.name}! Hub unlocked.`);
         });
     }
 
-
-    /* ==========================================================================
-       5. Registration Logic (Persists User to LocalStorage)
-       ========================================================================== */
     if (registerForm) {
         registerForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -163,60 +178,62 @@ document.addEventListener('DOMContentLoaded', () => {
             const school = document.getElementById('reg-school').value;
             const password = document.getElementById('reg-password').value.trim();
 
-            const existingUsers = getStoredUsers();
-            const userExists = existingUsers.some(u => u.email.toLowerCase() === email.toLowerCase());
-
-            if (userExists) {
-                alert('This email is already registered! Please switch to the Sign In tab.');
-                return;
-            }
-
-            const newUser = {
-                name: fullname,
-                email: email,
-                idNumber: idNumber,
-                schoolId: schoolId,
-                role: role,
-                school: school,
-                password: password
-            };
-
+            const newUser = { name: fullname, email, idNumber, schoolId, role, school, password };
             saveUserToDatabase(newUser);
             currentUser = newUser;
 
             registerForm.reset();
             checkAuthGate();
-            alert(`Registration successful! Your account has been saved. Welcome to SupaPass, ${currentUser.name}.`);
+            alert(`Registration complete! Welcome, ${currentUser.name}.`);
         });
     }
 
 
     /* ==========================================================================
-       6. Staff Event Posting Modal Controls
+       4. Render Staff Controls (Delete Buttons on Cards)
+       ========================================================================== */
+    function renderStaffControls() {
+        const cards = document.querySelectorAll('.event-card');
+        cards.forEach(card => {
+            let deleteBtn = card.querySelector('.btn-danger');
+            if (currentUser && currentUser.role === 'staff') {
+                if (!deleteBtn) {
+                    deleteBtn = document.createElement('button');
+                    deleteBtn.type = 'button';
+                    deleteBtn.className = 'btn btn-danger delete-event-btn';
+                    deleteBtn.textContent = '🗑 Delete';
+                    card.querySelector('.card-actions').prepend(deleteBtn);
+                }
+            } else {
+                if (deleteBtn) deleteBtn.remove();
+            }
+        });
+    }
+
+
+    /* ==========================================================================
+       5. Modal Controls
        ========================================================================== */
     if (openCreateEventBtn) {
         openCreateEventBtn.addEventListener('click', () => {
             if (currentUser && currentUser.role === 'staff') {
                 addEventModal.style.display = 'flex';
-            } else {
-                alert('Access Denied: Only Staff members are authorized to post campus events.');
             }
         });
     }
 
-    if (closeEventModal) {
-        closeEventModal.addEventListener('click', () => {
-            addEventModal.style.display = 'none';
-        });
+    if (openMyTicketsBtn) {
+        openMyTicketsBtn.addEventListener('click', renderMyTicketsList);
     }
 
-    window.addEventListener('click', (e) => {
-        if (e.target === addEventModal) addEventModal.style.display = 'none';
-    });
+    if (closeEventModal) closeEventModal.addEventListener('click', () => addEventModal.style.display = 'none');
+    if (closeDetailModal) closeDetailModal.addEventListener('click', () => eventDetailModal.style.display = 'none');
+    if (closeReceiptModal) closeReceiptModal.addEventListener('click', () => ticketReceiptModal.style.display = 'none');
+    if (closeMyTicketsModal) closeMyTicketsModal.addEventListener('click', () => myTicketsModal.style.display = 'none');
 
 
     /* ==========================================================================
-       7. Live Search & Filtering Logic
+       6. Live Filters
        ========================================================================== */
     function filterEvents() {
         const searchTerm = searchInput.value.toLowerCase().trim();
@@ -243,9 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        if (eventsCountBadge) {
-            eventsCountBadge.textContent = `${visibleCount} Events Listed`;
-        }
+        if (eventsCountBadge) eventsCountBadge.textContent = `${visibleCount} Events Listed`;
     }
 
     if (searchInput) searchInput.addEventListener('keyup', filterEvents);
@@ -254,13 +269,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* ==========================================================================
-       8. Publish Event (Staff Only)
+       7. Event Creation (Staff Only)
        ========================================================================== */
     if (createEventForm) {
         createEventForm.addEventListener('submit', (e) => {
             e.preventDefault();
 
             const title = document.getElementById('event-title').value;
+            const description = document.getElementById('event-description').value;
             const school = document.getElementById('event-school-select').value;
             const category = document.getElementById('event-cat-select').value;
             const date = document.getElementById('event-date').value;
@@ -274,6 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const newCard = document.createElement('article');
             newCard.className = 'event-card';
+            newCard.setAttribute('data-id', Date.now());
             newCard.setAttribute('data-school', school.toLowerCase().includes('science') ? 'science' : 'dusa');
             newCard.setAttribute('data-category', category);
 
@@ -285,6 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div class="card-content">
                     <h4 class="event-title">${title}</h4>
+                    <p class="event-desc-snippet">${description.substring(0, 80)}...</p>
                     <div class="event-details">
                         <p class="detail-item"><strong>Date:</strong> ${date}</p>
                         <p class="detail-item"><strong>Venue:</strong> ${venue}</p>
@@ -292,7 +310,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <div class="card-footer">
                         <span class="price-badge ${priceClass}">${priceText}</span>
-                        <button type="button" class="btn btn-primary book-ticket-btn">Book Pass</button>
+                        <div class="card-actions">
+                            <button type="button" class="btn btn-outline view-details-btn">Details</button>
+                            <button type="button" class="btn btn-primary book-ticket-btn">Book Pass</button>
+                        </div>
                     </div>
                 </div>
             `;
@@ -301,43 +322,102 @@ document.addEventListener('DOMContentLoaded', () => {
             createEventForm.reset();
             addEventModal.style.display = 'none';
             filterEvents();
-            alert('Event published successfully to the SupaPass feed!');
+            renderStaffControls();
+            alert('Event published to feed!');
         });
     }
 
 
     /* ==========================================================================
-       9. Unique Ticket Booking & Digital Receipt Generation
+       8. Universal Delegate Listener (Details, Booking, Deletion)
        ========================================================================== */
     document.addEventListener('click', (e) => {
-        if (e.target && e.target.classList.contains('book-ticket-btn')) {
-            if (!currentUser) {
-                alert('Authentication required!');
-                return;
+        const card = e.target.closest('.event-card');
+
+        // A. View Details Modal
+        if (e.target && e.target.classList.contains('view-details-btn')) {
+            if (!card) return;
+            document.getElementById('detail-title').textContent = card.querySelector('.event-title').textContent;
+            document.getElementById('detail-description').textContent = card.querySelector('.event-desc-snippet').textContent;
+            document.getElementById('detail-school').textContent = card.querySelector('.badge-school').textContent;
+            document.getElementById('detail-category').textContent = card.querySelector('.badge-category').textContent;
+            document.getElementById('detail-price').textContent = card.querySelector('.price-badge').textContent;
+
+            const details = card.querySelectorAll('.detail-item');
+            document.getElementById('detail-date').textContent = details[0] ? details[0].textContent.replace('Date:', '') : '';
+            document.getElementById('detail-venue').textContent = details[1] ? details[1].textContent.replace('Venue:', '') : '';
+            document.getElementById('detail-target').textContent = details[2] ? details[2].textContent.replace('Target:', '') : '';
+
+            eventDetailModal.style.display = 'flex';
+        }
+
+        // B. Book Ticket
+        if (e.target && (e.target.classList.contains('book-ticket-btn') || e.target.id === 'detail-book-now-btn')) {
+            if (!currentUser) return;
+
+            const eventTitle = card ? card.querySelector('.event-title').textContent : document.getElementById('detail-title').textContent;
+            const uniqueTicketNo = `SP-2026-${Math.floor(1000 + Math.random() * 9000)}`;
+
+            const ticketData = {
+                ticketNo: uniqueTicketNo,
+                eventTitle: eventTitle,
+                userEmail: currentUser.email,
+                userName: currentUser.name,
+                schoolId: currentUser.schoolId,
+                nationalId: currentUser.idNumber,
+                school: currentUser.school,
+                date: new Date().toLocaleDateString()
+            };
+
+            saveTicketToDatabase(ticketData);
+
+            // Populate visual QR receipt modal
+            document.getElementById('receipt-event-title').textContent = ticketData.eventTitle;
+            document.getElementById('receipt-ticket-no').textContent = ticketData.ticketNo;
+            document.getElementById('receipt-holder-name').textContent = ticketData.userName;
+            document.getElementById('receipt-school-id').textContent = ticketData.schoolId;
+            document.getElementById('receipt-national-id').textContent = ticketData.nationalId;
+            document.getElementById('receipt-school').textContent = ticketData.school;
+
+            if (eventDetailModal) eventDetailModal.style.display = 'none';
+            ticketReceiptModal.style.display = 'flex';
+        }
+
+        // C. Delete Event (Staff Only)
+        if (e.target && e.target.classList.contains('delete-event-btn')) {
+            if (confirm('Are you sure you want to remove this event posting?')) {
+                card.remove();
+                filterEvents();
             }
-
-            const card = e.target.closest('.event-card');
-            const eventTitle = card ? card.querySelector('.event-title').textContent : 'Campus Event';
-            
-            const randomDigits = Math.floor(1000 + Math.random() * 9000);
-            const uniqueTicketNo = `SP-2026-${randomDigits}`;
-
-            const receiptMessage = 
-                `🎫 OFFICIAL SUPAPASS DIGITAL RECEIPT\n` +
-                `=====================================\n` +
-                `• Unique Ticket No: ${uniqueTicketNo}\n` +
-                `• Event: ${eventTitle}\n` +
-                `-------------------------------------\n` +
-                `• Holder Name: ${currentUser.name}\n` +
-                `• School / Faculty: ${currentUser.school}\n` +
-                `• School ID / Reg No: ${currentUser.schoolId}\n` +
-                `• National ID No: ${currentUser.idNumber}\n` +
-                `• Email: ${currentUser.email}\n` +
-                `=====================================\n` +
-                `Status: VALID & CONFIRMED`;
-
-            alert(receiptMessage);
         }
     });
+
+
+    /* ==========================================================================
+       9. Render "My Booked Passes"
+       ========================================================================== */
+    function renderMyTicketsList() {
+        const allTickets = getStoredTickets();
+        const userTickets = allTickets.filter(t => t.userEmail === currentUser.email);
+        const container = document.getElementById('my-tickets-list');
+
+        if (userTickets.length === 0) {
+            container.innerHTML = `<p style="text-align: center; color: var(--text-muted); padding: 1rem;">No passes booked yet.</p>`;
+        } else {
+            container.innerHTML = userTickets.map(t => `
+                <div class="ticket-history-item">
+                    <div style="display:flex; justify-between; align-items:center;">
+                        <h4 style="color: var(--primary-red);">${t.eventTitle}</h4>
+                        <span style="font-family:monospace; font-weight:bold;">${t.ticketNo}</span>
+                    </div>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-top:0.3rem;">
+                        Holder: ${t.userName} (${t.schoolId}) • Booked on: ${t.date}
+                    </p>
+                </div>
+            `).join('');
+        }
+
+        myTicketsModal.style.display = 'flex';
+    }
 
 });

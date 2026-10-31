@@ -48,6 +48,30 @@
                 </div>
 
                 <!-- School Filter Hook -->
+                 <!--nikitaka kuadd a school category i start here
+                  <option value="catergory i need to add eg ..(psychology)"> the branch of school the course belongs eg School of Psychology</option> 
+                  to the Filter Dropdown, 
+                 Registration Form Dropdown, and Staff Post Event Dropdown
+                STEP 1: UPDATE HTML DROPDOWNS (index.html)
+1. Search Filter Dropdown (`#school-filter`):
+   Add `<option value="psychology">School of Psychology</option>` so users can filter events specifically for this school.
+2. Registration Form Dropdown (`#reg-school`):
+   Add `<option value="School of Psychology">School of Psychology</option>` so new users can select it as their primary department.
+3. Event Creation Modal Dropdown (`#event-school-select`):
+   Add `<option value="School of Psychology">School of Psychology</option>` so Staff members can assign newly created events to this faculty.
+
+STEP 2: ADD SAMPLE EVENT CARD (index.html)
+Add a new `<article class="event-card">` element inside the `#event-grid-container` wrapper with the attributes:
+- `data-school="psychology"`
+- `data-category="academic"` (or `"non-academic"`)
+This provides an immediate sample event on page load that responds to search and filter queries.
+
+STEP 3: UPDATE JAVASCRIPT ATTRIBUTE MAPPING (js/app.js)
+Inside the `createEventForm` submit event listener:
+Add a conditional check for `school.toLowerCase().includes('psychology')` to map the selected dropdown option to the string `'psychology'`.
+This ensures newly posted staff events receive the correct `data-school="psychology"` attribute required for real-time filtering, local storage persistence, and digital pass receipt generation.
+                 -->
+
                 <div class="form-group">
                     <label for="school-filter">Filter by School / Faculty</label>
                     <select id="school-filter" class="form-control">
@@ -218,7 +242,7 @@
             <form id="register-form" style="display: none;">
                 <div class="form-group">
                     <label for="reg-fullname">Full Name</label>
-                    <input type="text" id="reg-fullname" class="form-control" placeholder="e.g. Antony Owande" required>
+                    <input type="text" id="reg-fullname" class="form-control" placeholder="e.g. Group 7" required>
                 </div>
 
                 <div class="form-group">

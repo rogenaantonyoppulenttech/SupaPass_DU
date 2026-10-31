@@ -28,7 +28,7 @@ body {
     line-height: 1.6;
 }
 
-/* 2. Navigation Header */
+/* Header */
 .main-header {
     background-color: var(--primary-red);
     color: #ffffff;
@@ -64,6 +64,7 @@ body {
 .auth-buttons {
     display: flex;
     gap: 0.5rem;
+    align-items: center;
 }
 
 /* UI Buttons */
@@ -88,6 +89,17 @@ body {
     color: var(--primary-red);
 }
 
+.btn-danger {
+    background-color: #d32f2f;
+    color: #ffffff;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
+}
+
+.btn-danger:hover {
+    background-color: #9a0007;
+}
+
 .btn-primary {
     background-color: var(--primary-red);
     color: #ffffff;
@@ -97,7 +109,7 @@ body {
     background-color: var(--primary-dark);
 }
 
-/* 3. Hero Banner */
+/* Hero */
 .hero-section {
     background: linear-gradient(135deg, var(--primary-red) 0%, var(--primary-dark) 100%);
     color: #ffffff;
@@ -120,7 +132,7 @@ body {
     opacity: 0.9;
 }
 
-/* 4. Filter Panel & Inputs */
+/* Filter & Main Grid */
 .main-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -175,7 +187,6 @@ body {
     min-width: 260px;
 }
 
-/* 5. Events Grid & Cards */
 .events-header {
     display: flex;
     justify-content: space-between;
@@ -266,8 +277,14 @@ body {
 .event-title {
     font-size: 1.1rem;
     font-weight: 700;
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.3rem;
     color: var(--text-dark);
+}
+
+.event-desc-snippet {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 0.8rem;
 }
 
 .event-details {
@@ -289,8 +306,13 @@ body {
     border-top: 1px solid var(--border-color);
 }
 
+.card-actions {
+    display: flex;
+    gap: 0.4rem;
+}
+
 .price-badge {
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 700;
 }
 
@@ -302,7 +324,7 @@ body {
     color: var(--primary-dark);
 }
 
-/* 6. Footer Layout */
+/* Footer */
 .main-footer {
     background-color: #111111;
     color: #aaaaaa;
@@ -338,12 +360,6 @@ body {
 .footer-col ul li a {
     color: #aaaaaa;
     text-decoration: none;
-    transition: color 0.2s;
-}
-
-.footer-col ul li a:hover {
-    color: #ffffff;
-    text-decoration: underline;
 }
 
 .footer-bottom {
@@ -355,7 +371,7 @@ body {
     color: #777777;
 }
 
-/* 7. Modal Overlay and Form Layouts */
+/* Modals */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -376,10 +392,16 @@ body {
     width: 90%;
     max-width: 420px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 .modal-large {
-    max-width: 560px;
+    max-width: 600px;
+}
+
+.modal-ticket {
+    max-width: 450px;
 }
 
 .modal-header {
@@ -395,10 +417,6 @@ body {
     font-size: 1.5rem;
     cursor: pointer;
     color: var(--text-muted);
-}
-
-.close-modal-btn:hover {
-    color: var(--primary-red);
 }
 
 .auth-tabs {
@@ -434,6 +452,94 @@ body {
     flex: 1;
 }
 
+/* Simulated QR Ticket Element */
+.ticket-receipt-card {
+    border: 2px dashed var(--primary-red);
+    padding: 1.5rem;
+    border-radius: 8px;
+    background-color: #fffdfa;
+}
+
+.ticket-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.ticket-id-tag {
+    font-family: monospace;
+    font-weight: 700;
+    background: #222;
+    color: #fff;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
+.qr-wrapper {
+    text-align: center;
+    margin: 1rem 0;
+}
+
+.qr-code-box {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+    background: #000;
+    position: relative;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qr-corner {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background: #fff;
+}
+
+.top-left { top: 8px; left: 8px; border: 4px solid #000; }
+.top-right { top: 8px; right: 8px; border: 4px solid #000; }
+.bottom-left { bottom: 8px; left: 8px; border: 4px solid #000; }
+
+.qr-center-pattern {
+    width: 40px;
+    height: 40px;
+    background: #fff;
+}
+
+.qr-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.receipt-details p {
+    font-size: 0.85rem;
+    margin-bottom: 0.3rem;
+}
+
+.status-valid {
+    color: var(--free-green);
+    font-weight: 800;
+}
+
+.ticket-history-item {
+    border: 1px solid var(--border-color);
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 0.8rem;
+    background: #fafafa;
+}
+
+/* Media Queries */
 @media (min-width: 640px) {
     .event-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -449,9 +555,6 @@ body {
 @media (min-width: 992px) {
     .event-grid {
         grid-template-columns: repeat(3, 1fr);
-    }
-    .hero-content h2 {
-        font-size: 2.2rem;
     }
 }
 
