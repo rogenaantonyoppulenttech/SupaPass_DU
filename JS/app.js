@@ -1,925 +1,343 @@
 /* ==========================================================================
-   SupaPass Kenya - Complete Main Stylesheet
-   Designed for Daystar University ACS 355 Project
+   SupaPass Kenya - Complete Application JavaScript (`js/app.js`)
+   Consolidated Script: Auth Gate, LocalStorage DB, Role-Based Access & Ticketing
    ========================================================================== */
 
-:root {
-    --primary-red: #b40000;
-    --primary-dark: #7a0000;
-    --bg-light: #f4f6f9;
-    --card-bg: #ffffff;
-    --text-dark: #222222;
-    --text-muted: #666666;
-    --border-color: #e2e8f0;
-    --free-green: #2e7d32;
-    --font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: var(--font-family);
-    background-color: var(--bg-light);
-    color: var(--text-dark);
-    line-height: 1.6;
-}
-
-/* 2. Navigation Header */
-.main-header {
-    background-color: var(--primary-red);
-    color: #ffffff;
-    padding: 1rem 1.5rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-.header-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-
-.brand-name {
-    font-size: 1.6rem;
-    font-weight: 800;
-    letter-spacing: 0.5px;
-}
-
-.brand-name span {
-    color: #ffd700;
-}
-
-.brand-tagline {
-    font-size: 0.85rem;
-    opacity: 0.9;
-}
-
-.auth-buttons {
-    display: flex;
-    gap: 0.5rem;
-}
-
-/* UI Buttons */
-.btn {
-    padding: 0.45rem 1rem;
-    border-radius: 4px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    border: none;
-}
-
-.btn-outline {
-    background: transparent;
-    color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.7);
-}
-
-.btn-outline:hover {
-    background-color: #ffffff;
-    color: var(--primary-red);
-}
-
-.btn-primary {
-    background-color: var(--primary-red);
-    color: #ffffff;
-}
-
-.btn-primary:hover {
-    background-color: var(--primary-dark);
-}
-
-/* 3. Hero Banner */
-.hero-section {
-    background: linear-gradient(135deg, var(--primary-red) 0%, var(--primary-dark) 100%);
-    color: #ffffff;
-    text-align: center;
-    padding: 2.5rem 1rem;
-}
-
-.hero-content {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.hero-content h2 {
-    font-size: 1.8rem;
-    margin-bottom: 0.5rem;
-}
-
-.hero-content p {
-    font-size: 0.95rem;
-    opacity: 0.9;
-}
-
-/* 4. Filter Panel & Inputs */
-.main-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1.5rem 1rem;
-}
-
-.filter-section {
-    background-color: var(--card-bg);
-    padding: 1.25rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    margin-bottom: 2rem;
-}
-
-.filter-form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    min-width: 200px;
-    margin-bottom: 0.8rem;
-}
-
-.form-group label {
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    margin-bottom: 0.3rem;
-}
-
-.form-control {
-    padding: 0.55rem 0.75rem;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    font-size: 0.9rem;
-    outline: none;
-    transition: border-color 0.2s;
-}
-
-.form-control:focus {
-    border-color: var(--primary-red);
-}
-
-.search-group {
-    flex: 2;
-    min-width: 260px;
-}
-
-/* 5. Events Grid & Cards */
-.events-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-}
-
-.events-header h3 {
-    font-size: 1.3rem;
-    color: var(--text-dark);
-}
-
-.events-count {
-    font-size: 0.85rem;
-    background-color: #e2e8f0;
-    padding: 0.2rem 0.6rem;
-    border-radius: 12px;
-    color: var(--text-muted);
-    font-weight: 600;
-}
-
-.event-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-}
-
-.event-card {
-    background-color: var(--card-bg);
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.event-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
-}
-
-.card-image-wrapper {
-    position: relative;
-    height: 140px;
-}
-
-.placeholder-image {
-    width: 100%;
-    height: 100%;
-    background-color: #2b3e50;
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    font-weight: 700;
-}
-
-.badge {
-    position: absolute;
-    top: 10px;
-    padding: 0.2rem 0.5rem;
-    font-size: 0.7rem;
-    font-weight: 700;
-    border-radius: 3px;
-    color: #ffffff;
-    text-transform: uppercase;
-}
-
-.badge-school {
-    left: 10px;
-    background-color: rgba(0, 0, 0, 0.75);
-}
-
-.badge-category {
-    right: 10px;
-    background-color: var(--primary-red);
-}
-
-.card-content {
-    padding: 1.2rem;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-}
-
-.event-title {
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin-bottom: 0.6rem;
-    color: var(--text-dark);
-}
-
-.event-details {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    margin-bottom: 1rem;
-}
-
-.detail-item {
-    margin-bottom: 0.2rem;
-}
-
-.card-footer {
-    margin-top: auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 0.8rem;
-    border-top: 1px solid var(--border-color);
-}
-
-.price-badge {
-    font-size: 1rem;
-    font-weight: 700;
-}
-
-.free-price {
-    color: var(--free-green);
-}
-
-.paid-price {
-    color: var(--primary-dark);
-}
-
-/* 6. Footer Layout */
-.main-footer {
-    background-color: #111111;
-    color: #aaaaaa;
-    padding: 2.5rem 1rem 1rem 1rem;
-    margin-top: 3rem;
-    font-size: 0.85rem;
-}
-
-.footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-    margin-bottom: 2rem;
-}
-
-.footer-col h4 {
-    color: #ffffff;
-    font-size: 1rem;
-    margin-bottom: 0.8rem;
-    font-weight: 700;
-}
-
-.footer-col ul {
-    list-style: none;
-}
-
-.footer-col ul li {
-    margin-bottom: 0.4rem;
-}
-
-.footer-col ul li a {
-    color: #aaaaaa;
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-.footer-col ul li a:hover {
-    color: #ffffff;
-    text-decoration: underline;
-}
-
-.footer-bottom {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-top: 1rem;
-    border-top: 1px solid #222222;
-    text-align: center;
-    color: #777777;
-}
-
-/* 7. Modal Overlay and Form Layouts */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.75);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.modal-content {
-    background-color: var(--card-bg);
-    padding: 2rem;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 420px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-}
-
-.modal-large {
-    max-width: 560px;
-}
-
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.2rem;
-}
-
-.close-modal-btn {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: var(--text-muted);
-}
-
-.close-modal-btn:hover {
-    color: var(--primary-red);
-}
-
-.auth-tabs {
-    display: flex;
-    gap: 0.5rem;
-    width: 100%;
-}
-
-.tab-btn {
-    background: none;
-    border: none;
-    font-size: 1rem;
-    font-weight: 700;
-    padding: 0.3rem 0.6rem;
-    cursor: pointer;
-    color: var(--text-muted);
-    border-bottom: 2px solid transparent;
-    flex: 1;
-    text-align: center;
-}
-
-.tab-btn.active {
-    color: var(--primary-red);
-    border-bottom: 2px solid var(--primary-red);
-}
-
-.form-row {
-    display: flex;
-    gap: 1rem;
-}
-
-.form-row .form-group {
-    flex: 1;
-}
-
-@media (min-width: 640px) {
-    .event-grid {
-        grid-template-columns: repeat(2, 1fr);
+document.addEventListener('DOMContentLoaded', () => {
+
+    let currentUser = null;
+
+    // DOM Elements
+    const authModal = document.getElementById('auth-modal');
+    const heroSection = document.getElementById('hero-section');
+    const mainDashboard = document.getElementById('main-dashboard');
+    const openCreateEventBtn = document.getElementById('open-create-event-btn');
+    const openAuthBtn = document.getElementById('open-auth-btn');
+
+    const addEventModal = document.getElementById('add-event-modal');
+    const closeEventModal = document.getElementById('close-event-modal');
+
+    // Auth Tabs & Forms
+    const tabLoginBtn = document.getElementById('tab-login-btn');
+    const tabRegisterBtn = document.getElementById('tab-register-btn');
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+
+    // Filtering Inputs
+    const searchInput = document.getElementById('search-input');
+    const schoolFilter = document.getElementById('school-filter');
+    const categoryFilter = document.getElementById('category-filter');
+    const eventGridContainer = document.getElementById('event-grid-container');
+    const eventsCountBadge = document.getElementById('events-count-badge');
+
+    const createEventForm = document.getElementById('create-event-form');
+
+
+    /* ==========================================================================
+       1. Helper Functions: User Database in LocalStorage
+       ========================================================================== */
+    function getStoredUsers() {
+        const users = localStorage.getItem('supapass_users');
+        return users ? JSON.parse(users) : [];
     }
-}
 
-@media (min-width: 768px) {
-    .footer-container {
-        grid-template-columns: repeat(3, 1fr);
+    function saveUserToDatabase(user) {
+        const users = getStoredUsers();
+        users.push(user);
+        localStorage.setItem('supapass_users', JSON.stringify(users));
     }
-}
 
-@media (min-width: 992px) {
-    .event-grid {
-        grid-template-columns: repeat(3, 1fr);
+
+    /* ==========================================================================
+       2. Force Auth Gate on Load
+       ========================================================================== */
+    function checkAuthGate() {
+        if (!currentUser) {
+            authModal.style.display = 'flex';
+            heroSection.style.display = 'none';
+            mainDashboard.style.display = 'none';
+            if (openCreateEventBtn) openCreateEventBtn.style.display = 'none';
+        } else {
+            authModal.style.display = 'none';
+            heroSection.style.display = 'block';
+            mainDashboard.style.display = 'block';
+            
+            // Show Post Event button ONLY if user is staff
+            if (currentUser.role === 'staff') {
+                openCreateEventBtn.style.display = 'inline-block';
+            } else {
+                openCreateEventBtn.style.display = 'none';
+            }
+
+            openAuthBtn.textContent = `👤 ${currentUser.name} (${currentUser.role.toUpperCase()})`;
+            openAuthBtn.style.backgroundColor = '#2e7d32';
+        }
     }
-    .hero-content h2 {
-        font-size: 2.2rem;
+
+    checkAuthGate();
+
+
+    /* ==========================================================================
+       3. Auth Tab Switcher (Sign In vs Register)
+       ========================================================================== */
+    if (tabLoginBtn && tabRegisterBtn) {
+        tabLoginBtn.addEventListener('click', () => {
+            tabLoginBtn.classList.add('active');
+            tabRegisterBtn.classList.remove('active');
+            loginForm.style.display = 'block';
+            registerForm.style.display = 'none';
+        });
+
+        tabRegisterBtn.addEventListener('click', () => {
+            tabRegisterBtn.classList.add('active');
+            tabLoginBtn.classList.remove('active');
+            registerForm.style.display = 'block';
+            loginForm.style.display = 'none';
+        });
     }
-}
 
-@media (max-width: 500px) {
-    .form-row {
-        flex-direction: column;
-        gap: 0;
+
+    /* ==========================================================================
+       4. Login Logic (Checks LocalStorage + Presentation Test Defaults)
+       ========================================================================== */
+    if (loginForm) {
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const usernameInput = document.getElementById('login-username').value.trim().toLowerCase();
+            const passwordInput = document.getElementById('login-password').value.trim();
+
+            // 1. Presentation Test Defaults
+            if (usernameInput === 'admin' && passwordInput === 'admin') {
+                currentUser = {
+                    name: 'System Admin (Staff)',
+                    email: 'admin@daystar.ac.ke',
+                    idNumber: 'ID-99999999',
+                    schoolId: 'STAFF-001',
+                    role: 'staff',
+                    school: 'Central Administration'
+                };
+            } else if (usernameInput === 'student' && passwordInput === 'admin') {
+                currentUser = {
+                    name: 'Antony Owande',
+                    email: '25-0141@daystar.ac.ke',
+                    idNumber: '38492011',
+                    schoolId: '25-0141',
+                    role: 'student',
+                    school: 'School of Science & Technology'
+                };
+            } else {
+                // 2. Check Saved Registered Users in Browser Storage
+                const registeredUsers = getStoredUsers();
+                const matchedUser = registeredUsers.find(
+                    u => (u.email.toLowerCase() === usernameInput || u.schoolId.toLowerCase() === usernameInput) && u.password === passwordInput
+                );
+
+                if (matchedUser) {
+                    currentUser = matchedUser;
+                } else {
+                    alert('Invalid login credentials! Please check your username/ID and password, or register a new account.');
+                    return;
+                }
+            }
+
+            loginForm.reset();
+            checkAuthGate();
+            alert(`Welcome back, ${currentUser.name}! Hub access granted.`);
+        });
     }
-}/* ==========================================================================
-   SupaPass Kenya - Complete Main Stylesheet
-   Designed for Daystar University ACS 355 Project
-   ========================================================================== */
 
-:root {
-    --primary-red: #b40000;
-    --primary-dark: #7a0000;
-    --bg-light: #f4f6f9;
-    --card-bg: #ffffff;
-    --text-dark: #222222;
-    --text-muted: #666666;
-    --border-color: #e2e8f0;
-    --free-green: #2e7d32;
-    --font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
-}
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: var(--font-family);
-    background-color: var(--bg-light);
-    color: var(--text-dark);
-    line-height: 1.6;
-}
-
-/* 2. Navigation Header */
-.main-header {
-    background-color: var(--primary-red);
-    color: #ffffff;
-    padding: 1rem 1.5rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-.header-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-
-.brand-name {
-    font-size: 1.6rem;
-    font-weight: 800;
-    letter-spacing: 0.5px;
-}
-
-.brand-name span {
-    color: #ffd700;
-}
-
-.brand-tagline {
-    font-size: 0.85rem;
-    opacity: 0.9;
-}
-
-.auth-buttons {
-    display: flex;
-    gap: 0.5rem;
-}
-
-/* UI Buttons */
-.btn {
-    padding: 0.45rem 1rem;
-    border-radius: 4px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    border: none;
-}
-
-.btn-outline {
-    background: transparent;
-    color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.7);
-}
-
-.btn-outline:hover {
-    background-color: #ffffff;
-    color: var(--primary-red);
-}
-
-.btn-primary {
-    background-color: var(--primary-red);
-    color: #ffffff;
-}
-
-.btn-primary:hover {
-    background-color: var(--primary-dark);
-}
-
-/* 3. Hero Banner */
-.hero-section {
-    background: linear-gradient(135deg, var(--primary-red) 0%, var(--primary-dark) 100%);
-    color: #ffffff;
-    text-align: center;
-    padding: 2.5rem 1rem;
-}
-
-.hero-content {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.hero-content h2 {
-    font-size: 1.8rem;
-    margin-bottom: 0.5rem;
-}
-
-.hero-content p {
-    font-size: 0.95rem;
-    opacity: 0.9;
-}
-
-/* 4. Filter Panel & Inputs */
-.main-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1.5rem 1rem;
-}
-
-.filter-section {
-    background-color: var(--card-bg);
-    padding: 1.25rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    margin-bottom: 2rem;
-}
-
-.filter-form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    min-width: 200px;
-    margin-bottom: 0.8rem;
-}
-
-.form-group label {
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    margin-bottom: 0.3rem;
-}
-
-.form-control {
-    padding: 0.55rem 0.75rem;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    font-size: 0.9rem;
-    outline: none;
-    transition: border-color 0.2s;
-}
-
-.form-control:focus {
-    border-color: var(--primary-red);
-}
-
-.search-group {
-    flex: 2;
-    min-width: 260px;
-}
-
-/* 5. Events Grid & Cards */
-.events-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-}
-
-.events-header h3 {
-    font-size: 1.3rem;
-    color: var(--text-dark);
-}
-
-.events-count {
-    font-size: 0.85rem;
-    background-color: #e2e8f0;
-    padding: 0.2rem 0.6rem;
-    border-radius: 12px;
-    color: var(--text-muted);
-    font-weight: 600;
-}
-
-.event-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-}
-
-.event-card {
-    background-color: var(--card-bg);
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.event-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
-}
-
-.card-image-wrapper {
-    position: relative;
-    height: 140px;
-}
-
-.placeholder-image {
-    width: 100%;
-    height: 100%;
-    background-color: #2b3e50;
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    font-weight: 700;
-}
-
-.badge {
-    position: absolute;
-    top: 10px;
-    padding: 0.2rem 0.5rem;
-    font-size: 0.7rem;
-    font-weight: 700;
-    border-radius: 3px;
-    color: #ffffff;
-    text-transform: uppercase;
-}
-
-.badge-school {
-    left: 10px;
-    background-color: rgba(0, 0, 0, 0.75);
-}
-
-.badge-category {
-    right: 10px;
-    background-color: var(--primary-red);
-}
-
-.card-content {
-    padding: 1.2rem;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-}
-
-.event-title {
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin-bottom: 0.6rem;
-    color: var(--text-dark);
-}
-
-.event-details {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    margin-bottom: 1rem;
-}
-
-.detail-item {
-    margin-bottom: 0.2rem;
-}
-
-.card-footer {
-    margin-top: auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 0.8rem;
-    border-top: 1px solid var(--border-color);
-}
-
-.price-badge {
-    font-size: 1rem;
-    font-weight: 700;
-}
-
-.free-price {
-    color: var(--free-green);
-}
-
-.paid-price {
-    color: var(--primary-dark);
-}
-
-/* 6. Footer Layout */
-.main-footer {
-    background-color: #111111;
-    color: #aaaaaa;
-    padding: 2.5rem 1rem 1rem 1rem;
-    margin-top: 3rem;
-    font-size: 0.85rem;
-}
-
-.footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-    margin-bottom: 2rem;
-}
-
-.footer-col h4 {
-    color: #ffffff;
-    font-size: 1rem;
-    margin-bottom: 0.8rem;
-    font-weight: 700;
-}
-
-.footer-col ul {
-    list-style: none;
-}
-
-.footer-col ul li {
-    margin-bottom: 0.4rem;
-}
-
-.footer-col ul li a {
-    color: #aaaaaa;
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-.footer-col ul li a:hover {
-    color: #ffffff;
-    text-decoration: underline;
-}
-
-.footer-bottom {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-top: 1rem;
-    border-top: 1px solid #222222;
-    text-align: center;
-    color: #777777;
-}
-
-/* 7. Modal Overlay and Form Layouts */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.75);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.modal-content {
-    background-color: var(--card-bg);
-    padding: 2rem;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 420px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-}
-
-.modal-large {
-    max-width: 560px;
-}
-
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.2rem;
-}
-
-.close-modal-btn {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: var(--text-muted);
-}
-
-.close-modal-btn:hover {
-    color: var(--primary-red);
-}
-
-.auth-tabs {
-    display: flex;
-    gap: 0.5rem;
-    width: 100%;
-}
-
-.tab-btn {
-    background: none;
-    border: none;
-    font-size: 1rem;
-    font-weight: 700;
-    padding: 0.3rem 0.6rem;
-    cursor: pointer;
-    color: var(--text-muted);
-    border-bottom: 2px solid transparent;
-    flex: 1;
-    text-align: center;
-}
-
-.tab-btn.active {
-    color: var(--primary-red);
-    border-bottom: 2px solid var(--primary-red);
-}
-
-.form-row {
-    display: flex;
-    gap: 1rem;
-}
-
-.form-row .form-group {
-    flex: 1;
-}
-
-@media (min-width: 640px) {
-    .event-grid {
-        grid-template-columns: repeat(2, 1fr);
+    /* ==========================================================================
+       5. Registration Logic (Persists User to LocalStorage)
+       ========================================================================== */
+    if (registerForm) {
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const fullname = document.getElementById('reg-fullname').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+            const idNumber = document.getElementById('reg-idnumber').value.trim();
+            const schoolId = document.getElementById('reg-schoolid').value.trim();
+            const role = document.getElementById('reg-role').value;
+            const school = document.getElementById('reg-school').value;
+            const password = document.getElementById('reg-password').value.trim();
+
+            const existingUsers = getStoredUsers();
+            const userExists = existingUsers.some(u => u.email.toLowerCase() === email.toLowerCase());
+
+            if (userExists) {
+                alert('This email is already registered! Please switch to the Sign In tab.');
+                return;
+            }
+
+            const newUser = {
+                name: fullname,
+                email: email,
+                idNumber: idNumber,
+                schoolId: schoolId,
+                role: role,
+                school: school,
+                password: password
+            };
+
+            saveUserToDatabase(newUser);
+            currentUser = newUser;
+
+            registerForm.reset();
+            checkAuthGate();
+            alert(`Registration successful! Your account has been saved. Welcome to SupaPass, ${currentUser.name}.`);
+        });
     }
-}
 
-@media (min-width: 768px) {
-    .footer-container {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
 
-@media (min-width: 992px) {
-    .event-grid {
-        grid-template-columns: repeat(3, 1fr);
+    /* ==========================================================================
+       6. Staff Event Posting Modal Controls
+       ========================================================================== */
+    if (openCreateEventBtn) {
+        openCreateEventBtn.addEventListener('click', () => {
+            if (currentUser && currentUser.role === 'staff') {
+                addEventModal.style.display = 'flex';
+            } else {
+                alert('Access Denied: Only Staff members are authorized to post campus events.');
+            }
+        });
     }
-    .hero-content h2 {
-        font-size: 2.2rem;
-    }
-}
 
-@media (max-width: 500px) {
-    .form-row {
-        flex-direction: column;
-        gap: 0;
+    if (closeEventModal) {
+        closeEventModal.addEventListener('click', () => {
+            addEventModal.style.display = 'none';
+        });
     }
-}
+
+    window.addEventListener('click', (e) => {
+        if (e.target === addEventModal) addEventModal.style.display = 'none';
+    });
+
+
+    /* ==========================================================================
+       7. Live Search & Filtering Logic
+       ========================================================================== */
+    function filterEvents() {
+        const searchTerm = searchInput.value.toLowerCase().trim();
+        const selectedSchool = schoolFilter.value;
+        const selectedCategory = categoryFilter.value;
+
+        const eventCards = eventGridContainer.querySelectorAll('.event-card');
+        let visibleCount = 0;
+
+        eventCards.forEach(card => {
+            const cardSchool = card.getAttribute('data-school');
+            const cardCategory = card.getAttribute('data-category');
+            const cardText = card.textContent.toLowerCase();
+
+            const matchesSearch = cardText.includes(searchTerm);
+            const matchesSchool = (selectedSchool === 'all' || cardSchool === selectedSchool);
+            const matchesCategory = (selectedCategory === 'all' || cardCategory === selectedCategory);
+
+            if (matchesSearch && matchesSchool && matchesCategory) {
+                card.style.display = 'flex';
+                visibleCount++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+
+        if (eventsCountBadge) {
+            eventsCountBadge.textContent = `${visibleCount} Events Listed`;
+        }
+    }
+
+    if (searchInput) searchInput.addEventListener('keyup', filterEvents);
+    if (schoolFilter) schoolFilter.addEventListener('change', filterEvents);
+    if (categoryFilter) categoryFilter.addEventListener('change', filterEvents);
+
+
+    /* ==========================================================================
+       8. Publish Event (Staff Only)
+       ========================================================================== */
+    if (createEventForm) {
+        createEventForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const title = document.getElementById('event-title').value;
+            const school = document.getElementById('event-school-select').value;
+            const category = document.getElementById('event-cat-select').value;
+            const date = document.getElementById('event-date').value;
+            const venue = document.getElementById('event-venue').value;
+            const target = document.getElementById('event-target').value;
+            const price = document.getElementById('event-price').value;
+
+            const isFree = (price === '0' || price.toLowerCase().includes('free'));
+            const priceText = isFree ? 'KSH 0 (Free Entry)' : `KSH ${price}`;
+            const priceClass = isFree ? 'free-price' : 'paid-price';
+
+            const newCard = document.createElement('article');
+            newCard.className = 'event-card';
+            newCard.setAttribute('data-school', school.toLowerCase().includes('science') ? 'science' : 'dusa');
+            newCard.setAttribute('data-category', category);
+
+            newCard.innerHTML = `
+                <div class="card-image-wrapper">
+                    <span class="badge badge-school">${school}</span>
+                    <span class="badge badge-category">${category}</span>
+                    <div class="placeholder-image" style="background-color: #5c1d1d;">Staff Posted</div>
+                </div>
+                <div class="card-content">
+                    <h4 class="event-title">${title}</h4>
+                    <div class="event-details">
+                        <p class="detail-item"><strong>Date:</strong> ${date}</p>
+                        <p class="detail-item"><strong>Venue:</strong> ${venue}</p>
+                        <p class="detail-item"><strong>Target:</strong> ${target}</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="price-badge ${priceClass}">${priceText}</span>
+                        <button type="button" class="btn btn-primary book-ticket-btn">Book Pass</button>
+                    </div>
+                </div>
+            `;
+
+            eventGridContainer.prepend(newCard);
+            createEventForm.reset();
+            addEventModal.style.display = 'none';
+            filterEvents();
+            alert('Event published successfully to the SupaPass feed!');
+        });
+    }
+
+
+    /* ==========================================================================
+       9. Unique Ticket Booking & Digital Receipt Generation
+       ========================================================================== */
+    document.addEventListener('click', (e) => {
+        if (e.target && e.target.classList.contains('book-ticket-btn')) {
+            if (!currentUser) {
+                alert('Authentication required!');
+                return;
+            }
+
+            const card = e.target.closest('.event-card');
+            const eventTitle = card ? card.querySelector('.event-title').textContent : 'Campus Event';
+            
+            const randomDigits = Math.floor(1000 + Math.random() * 9000);
+            const uniqueTicketNo = `SP-2026-${randomDigits}`;
+
+            const receiptMessage = 
+                `🎫 OFFICIAL SUPAPASS DIGITAL RECEIPT\n` +
+                `=====================================\n` +
+                `• Unique Ticket No: ${uniqueTicketNo}\n` +
+                `• Event: ${eventTitle}\n` +
+                `-------------------------------------\n` +
+                `• Holder Name: ${currentUser.name}\n` +
+                `• School / Faculty: ${currentUser.school}\n` +
+                `• School ID / Reg No: ${currentUser.schoolId}\n` +
+                `• National ID No: ${currentUser.idNumber}\n` +
+                `• Email: ${currentUser.email}\n` +
+                `=====================================\n` +
+                `Status: VALID & CONFIRMED`;
+
+            alert(receiptMessage);
+        }
+    });
+
+});
